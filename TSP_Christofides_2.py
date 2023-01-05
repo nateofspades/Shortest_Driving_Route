@@ -16,7 +16,7 @@ def union(parent, rank, x, y):
         parent[yroot] = xroot
         rank[xroot] += 1
 
-
+ee
 def kruskal(G):
     result = []
     nodes = set()
