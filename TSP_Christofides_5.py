@@ -40,12 +40,16 @@ def christofides_algorithm(G, start):
 
     # Step 5: Construct a minimum-weight perfect matching M in this subgraph S.
     M = nx.min_weight_matching(S)
+    M = nx.Graph(M)  # Convert from a set object to a graph object
 
-    # Step 6: Unite matching and spanning tree T ∪ M to form an Eulerian multigraph H; unions the edge sets and vertex sets
+    # Step 6: Unite matching and spanning tree T ∪ M to form an Eulerian multigraph H; duplicate edges allowed
+    H = nx.MultiGraph(list(T.edges) + list(M.edges))
 
-
-    # Step 7: Calculate Euler tour in H
+    # Step 7: Calculate Euler tour in H, beginning and ending at the start input
+    euler_tour = list(nx.eulerian_circuit(H, source=start))
 
     # Step 8: Remove repeated vertices
+
+
 
     # Step 9: (NOT FROM WIKI PAGE: NEED TO INCLUDE WEIGHTS BACK IN PLUS ADD TOTAL WEIGHT)

@@ -62,23 +62,34 @@ print(S.edges, '\n')
 # G.add_weighted_edges_from(edges)
 # print(sorted(nx.min_weight_matching(G)), '\n')  # Prints [('C', 'B'), ('D', 'E')]
 M = nx.min_weight_matching(S)
-print(M, '\n')
+M = nx.Graph(M)  # Convert from a set object to a graph object
+print(M.edges, '\n')
 
 
 # 6. Unite matching and spanning tree T ∪ M to form an Eulerian multigraph H; unions the edge sets and vertex sets
-# G = nx.Graph([("A", "B"), ("A", "C"), ("B", "C"), ("B", "D"), ("C", "E"), ("D", "E")])
-# H = nx.Graph([('A', 'E'), ('F', 'G')])
-# R = nx.compose(G, H)
+# G = nx.MultiGraph([("A", "B"), ("A", "C"), ("B", "C"), ("B", "D"), ("C", "E"), ("D", "E")])
+# H = nx.MultiGraph([('A', 'C'), ('F', 'G')])
+# R = nx.MultiGraph(nx.compose(G, H))
 # print(R.nodes)
 # print(R.edges)
-H = nx.compose(T, M)
-print(H)
+
+
+
+H = nx.MultiGraph(list(T.edges) + list(M.edges))
+print(H.edges)
+
 
 
 
 # 7. Calculate Euler tour in H
 # G = nx.Graph([("E", "D"), ("C", "B"), ("A", "B"), ("D", "A"), ("A", "C"), ("E", "A")])
 # print(list(nx.eulerian_circuit(G, source="A")))  # source is the starting node
+
+
+print(list(nx.eulerian_circuit(H, source="A")))
+print(list(nx.eulerian_circuit(H, source="B")))
+
+
 
 # 8. Remove repeated vertices, giving the algorithm's output.
 #def remove_repeated_vertices(euler_tour):
