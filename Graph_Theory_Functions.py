@@ -86,31 +86,42 @@ print(list(euler_tour))
 
 # 8. Remove repeated vertices, giving the algorithm's output.
 #def remove_repeated_vertices(euler_tour):
-
-
 # euler_tour = [('A', 'B'), ('B', 'C'), ('C', 'A'), ('A', 'D'), ('D', 'E'), ('E', 'A')]
 #
-hamiltonian_cycle = []
-hamiltonian_cycle.append(euler_tour[0][0])
-hamiltonian_cycle.append(euler_tour[0][1])
-for edge in euler_tour[1:]:
-    if edge[1] not in hamiltonian_cycle:
-        hamiltonian_cycle.append(edge[1])
 
+hamiltonian_cycle_node_form = []
+hamiltonian_cycle_node_form.append(euler_tour[0][0])
+hamiltonian_cycle_node_form.append(euler_tour[0][1])
+for edge in euler_tour[1:]:
+    if edge[1] not in hamiltonian_cycle_node_form:
+        hamiltonian_cycle_node_form.append(edge[1])
 # The hamiltonian cycle should end with the same vertex it started with
-hamiltonian_cycle.append(euler_tour[0][0])
-print(hamiltonian_cycle)
+hamiltonian_cycle_node_form.append(euler_tour[0][0])
+print(hamiltonian_cycle_node_form, '\n')
 
 
 # 9. Create the weighted Hamiltonian cycle. Also, compute the total edge weight of the Hamiltonian cycle.
+## Reminder that G = [("A", "B", 7), ("A", "C", 2), ("B", "C", 3), ("B", "D", 1), ("C", "E", 4), ("D", "E", 6)]
 
-hamiltonian_cycle_weighted = []
-n = len(hamiltonian_cycle)
+
+hamiltonian_cycle_weighted_edge_form = []
+total_edge_weight = 0
+n = len(hamiltonian_cycle_node_form)
 for i in range(n-1):
-    hamiltonian_cycle_weighted.append((hamiltonian_cycle[i], hamiltonian_cycle[i+1]))
+    node_1 = hamiltonian_cycle_node_form[i]
+    node_2 = hamiltonian_cycle_node_form[i+1]
+    weight = G.edges[node_1, node_2]['weight']
+    hamiltonian_cycle_weighted_edge_form.append((node_1, node_2, weight))
+    total_edge_weight += weight
 
-print(hamiltonian_cycle_weighted)
 
+# print(G.edges)
+# print(G.edges(data=True))
+# print(('B', 'A') in G.edges(data=True))
+# print(('B', 'A', {'weight':7}) in G.edges(data=True))
+# print(G.edges['A', 'B']['weight'])
+
+print((total_edge_weight, hamiltonian_cycle_weighted_edge_form))
 
 
 
