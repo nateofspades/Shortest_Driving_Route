@@ -29,13 +29,20 @@ def christofides_algorithm(G, start):
     T = nx.minimum_spanning_tree(G)
 
     # Step 3: Calculate the set of vertices O with odd degree in T.
+    T_nodes_and_degrees = T.degree
+    O = []
+    for node, degree in T_nodes_and_degrees:
+        if degree % 2 == 1:
+            O.append(node)
 
+    # Step 4: Form the subgraph S of G using only the vertices of O.
+    S = nx.induced_subgraph(G, O)
 
-    # Step 4: Form the subgraph of G using only the vertices of O.
-
-    # Step 5: Construct a minimum-weight perfect matching M in this subgraph
+    # Step 5: Construct a minimum-weight perfect matching M in this subgraph S.
+    M = nx.min_weight_matching(S)
 
     # Step 6: Unite matching and spanning tree T ∪ M to form an Eulerian multigraph H; unions the edge sets and vertex sets
+
 
     # Step 7: Calculate Euler tour in H
 

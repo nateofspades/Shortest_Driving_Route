@@ -9,9 +9,7 @@ G_temp = []
 for edge in G:
     G_temp.append((edge[0], edge[1], {'weight': edge[2]}))
 G = nx.Graph(G_temp)
-T = nx.minimum_spanning_tree(G)
-print(T.edges(data=True))
-print(G.edges(data=True))
+print(G.edges(data=True), '\n')
 
 
 
@@ -22,6 +20,8 @@ print(G.edges(data=True))
 # T = nx.minimum_spanning_tree(G)
 # print(G.edges(data=True))
 # print(T.nodes, T.edges, '\n')
+T = nx.minimum_spanning_tree(G)
+print(T.edges(data=True))
 
 
 
@@ -32,14 +32,27 @@ print(G.edges(data=True))
 # print(G.nodes)
 # print(G.edges)
 # print(list(G.degree(['A', 'B', 'C', 'D', 'E'])))
+print(list(T.degree))
+T_nodes_and_degrees = T.degree
+O = []
+for node, degree in T_nodes_and_degrees:
+    if degree%2 == 1:
+        O.append(node)
+print(O, '\n')
 
-# 4. Form the subgraph of G using only the vertices of O
+
+
+
+# 4. Form the subgraph S of G using only the vertices of O
 # G = nx.Graph()
 # E2  = [("A", "B"), ("A", "C"), ("B", "C"), ("B", "D"), ("C", "E"), ("D", "E")]
 # G.add_edges_from(E2)
 # H = nx.induced_subgraph(G, ['A', 'B', 'E'])
 # print(H.edges)
 # print(H.nodes)
+
+S = nx.induced_subgraph(G, O)
+print(S.edges, '\n')
 
 
 # 5. Construct a minimum-weight perfect matching M in this subgraph
@@ -48,6 +61,9 @@ print(G.edges(data=True))
 # edges = [("A", "B", 6), ("A", "C", 2), ("B", "C", 1), ("B", "D", 7), ("C", "E", 9), ("D", "E", 3)]
 # G.add_weighted_edges_from(edges)
 # print(sorted(nx.min_weight_matching(G)), '\n')  # Prints [('C', 'B'), ('D', 'E')]
+M = nx.min_weight_matching(S)
+print(M, '\n')
+
 
 # 6. Unite matching and spanning tree T ∪ M to form an Eulerian multigraph H; unions the edge sets and vertex sets
 # G = nx.Graph([("A", "B"), ("A", "C"), ("B", "C"), ("B", "D"), ("C", "E"), ("D", "E")])
@@ -55,6 +71,10 @@ print(G.edges(data=True))
 # R = nx.compose(G, H)
 # print(R.nodes)
 # print(R.edges)
+H = nx.compose(T, M)
+print(H)
+
+
 
 # 7. Calculate Euler tour in H
 # G = nx.Graph([("E", "D"), ("C", "B"), ("A", "B"), ("D", "A"), ("A", "C"), ("E", "A")])
