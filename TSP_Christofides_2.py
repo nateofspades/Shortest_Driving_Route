@@ -1,22 +1,30 @@
-def find(parent, i):
-    if parent[i] == i:
-        return i
-    return find(parent, parent[i])
+from collections import defaultdict
+from heapq import heappop, heappush
 
 
 def union(parent, rank, x, y):
-    xroot = find(parent, x)
-    yroot = find(parent, y)
+  """
+  This function is needed for the minimum_spanning_tree() function.
+  """
+  xroot = find(parent, x)
+  yroot = find(parent, y)
 
-    if rank[xroot] < rank[yroot]:
-        parent[xroot] = yroot
-    elif rank[xroot] > rank[yroot]:
-        parent[yroot] = xroot
-    else:
-        parent[yroot] = xroot
-        rank[xroot] += 1
+  if rank[xroot] < rank[yroot]:
+    parent[xroot] = yroot
+  elif rank[xroot] > rank[yroot]:
+    parent[yroot] = xroot
+  else:
+    parent[yroot] = xroot
+    rank[xroot] += 1
 
-ee
+def find(parent, i):
+  """
+  This function is needed for the minimum_spanning_tree() function.
+  """
+  if parent[i] == i:
+    return i
+  return find(parent, parent[i])
+
 def kruskal(G):
     result = []
     nodes = set()
@@ -99,64 +107,6 @@ def node_induced_subgraph(G, nodes):
 
 
 
-# Test case from Wikipedia:
-G = {
-    "A": {"A": 0, "B": 1, "C": 2, "D": 1, "E": 1},
-    "B": {"A": 1, "B": 0, "C": 1, "D": 2, "E": 1},
-    "C": {"A": 2, "B": 1, "C": 0, "D": 1, "E": 1},
-    "D": {"A": 1, "B": 2, "C": 1, "D": 0, "E": 1},
-    "E": {"A": 1, "B": 1, "C": 1, "D": 1, "E": 0}
-}
-minimum_spanning_tree = kruskal(G)
-print(minimum_spanning_tree)
-nodes = nodes_with_odd_degree(minimum_spanning_tree)
-print(nodes)
-subgraph = node_induced_subgraph(G, nodes)
-print(subgraph, '\n')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ################ SAVE THESE TEST CASES FOR LATER ################
@@ -215,7 +165,20 @@ print(subgraph, '\n')
 
 
 
-
+# Test case from Wikipedia:
+G = {
+    "A": {"A": 0, "B": 1, "C": 2, "D": 1, "E": 1},
+    "B": {"A": 1, "B": 0, "C": 1, "D": 2, "E": 1},
+    "C": {"A": 2, "B": 1, "C": 0, "D": 1, "E": 1},
+    "D": {"A": 1, "B": 2, "C": 1, "D": 0, "E": 1},
+    "E": {"A": 1, "B": 1, "C": 1, "D": 1, "E": 0}
+}
+minimum_spanning_tree = kruskal(G)
+print(minimum_spanning_tree)
+nodes = nodes_with_odd_degree(minimum_spanning_tree)
+print(nodes)
+subgraph = node_induced_subgraph(G, nodes)
+print(subgraph, '\n')
 
 
 
