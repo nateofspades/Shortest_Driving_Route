@@ -72,23 +72,16 @@ print(M.edges, '\n')
 # R = nx.MultiGraph(nx.compose(G, H))
 # print(R.nodes)
 # print(R.edges)
-
-
-
 H = nx.MultiGraph(list(T.edges) + list(M.edges))
 print(H.edges)
-
-
 
 
 # 7. Calculate Euler tour in H
 # G = nx.Graph([("E", "D"), ("C", "B"), ("A", "B"), ("D", "A"), ("A", "C"), ("E", "A")])
 # print(list(nx.eulerian_circuit(G, source="A")))  # source is the starting node
 
-
-print(list(nx.eulerian_circuit(H, source="A")))
-print(list(nx.eulerian_circuit(H, source="B")))
-
+euler_tour = list(nx.eulerian_circuit(H, source="A"))
+print(list(euler_tour))
 
 
 # 8. Remove repeated vertices, giving the algorithm's output.
@@ -97,18 +90,26 @@ print(list(nx.eulerian_circuit(H, source="B")))
 
 # euler_tour = [('A', 'B'), ('B', 'C'), ('C', 'A'), ('A', 'D'), ('D', 'E'), ('E', 'A')]
 #
-# hamiltonian_cycle = []
-# hamiltonian_cycle.append(euler_tour[0][0])
-# hamiltonian_cycle.append(euler_tour[0][1])
-# for edge in euler_tour[1:]:
-#     if edge[1] not in hamiltonian_cycle:
-#         hamiltonian_cycle.append(edge[1])
-#
-# # The hamiltonian cycle should end with the same vertex it started with
-# hamiltonian_cycle.append(euler_tour[0][0])
-#
-# print(hamiltonian_cycle)
+hamiltonian_cycle = []
+hamiltonian_cycle.append(euler_tour[0][0])
+hamiltonian_cycle.append(euler_tour[0][1])
+for edge in euler_tour[1:]:
+    if edge[1] not in hamiltonian_cycle:
+        hamiltonian_cycle.append(edge[1])
 
+# The hamiltonian cycle should end with the same vertex it started with
+hamiltonian_cycle.append(euler_tour[0][0])
+print(hamiltonian_cycle)
+
+
+# 9. Create the weighted Hamiltonian cycle. Also, compute the total edge weight of the Hamiltonian cycle.
+
+hamiltonian_cycle_weighted = []
+n = len(hamiltonian_cycle)
+for i in range(n-1):
+    hamiltonian_cycle_weighted.append((hamiltonian_cycle[i], hamiltonian_cycle[i+1]))
+
+print(hamiltonian_cycle_weighted)
 
 
 

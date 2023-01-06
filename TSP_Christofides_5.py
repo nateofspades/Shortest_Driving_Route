@@ -45,10 +45,19 @@ def christofides_algorithm(G, start):
     # Step 6: Unite matching and spanning tree T ∪ M to form an Eulerian multigraph H; duplicate edges allowed
     H = nx.MultiGraph(list(T.edges) + list(M.edges))
 
-    # Step 7: Calculate Euler tour in H, beginning and ending at the start input
+    # Step 7: Calculate Euler tour in H, beginning and ending at the start node
     euler_tour = list(nx.eulerian_circuit(H, source=start))
 
-    # Step 8: Remove repeated vertices
+    # Step 8: Remove repeated vertices to create (unweighted) Hamiltonian cycle
+    hamiltonian_cycle = []
+    hamiltonian_cycle.append(euler_tour[0][0])
+    hamiltonian_cycle.append(euler_tour[0][1])
+    for edge in euler_tour[1:]:
+        if edge[1] not in hamiltonian_cycle:
+            hamiltonian_cycle.append(edge[1])
+
+    # The hamiltonian cycle should end with the same vertex it started with
+    hamiltonian_cycle.append(euler_tour[0][0])
 
 
 
