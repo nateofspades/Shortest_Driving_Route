@@ -103,7 +103,7 @@ G = {
   'D': {'A': 8, 'B': 2, 'C': 5, 'D': 0}
 }
 start = 'A'
-print(tsp_christofides(G, 'A'))  # Prints (19, [('A', 'D', 8), ('D', 'B', 2), ('B', 'C', 3), ('C', 'A', 6)])
+print(tsp_christofides(G, start))  # Prints (19, [('A', 'D', 8), ('D', 'B', 2), ('B', 'C', 3), ('C', 'A', 6)])
 
 
 # Test case 2: 5 nodes
@@ -115,4 +115,4 @@ G = {
   'E': {'A': 40, 'B': 35, 'C': 15, 'D': 10, 'E': 0}
 }
 start = 'A'
-print(tsp_christofides(G, 'A'))  # Prints (80, [('A', 'E', 40), ('E', 'D', 10), ('D', 'C', 5), ('C', 'B', 15), ('B', 'A', 10)])
+print(tsp_christofides(G, start))  # Prints (80, [('A', 'E', 40), ('E', 'D', 10), ('D', 'C', 5), ('C', 'B', 15), ('B', 'A', 10)])
