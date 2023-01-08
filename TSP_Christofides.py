@@ -1,87 +1,73 @@
-from typing import Dict, List
-import math
+# This file creates a function that implements Christofide's algorithm for any weighted complete graph that satisfies the triangle inequality.
+# The steps in the function definition follow the steps in the Example in this Wikipedia page: https://en.wikipedia.org/wiki/Christofides_algorithm
 
-from typing import Dict, List
-import math
+import networkx as nx
 
-def Christofides(destinations: List[str], distances: Dict[str, Dict[str, float]], start: str) -> Dict[str, Dict[str, float]]:
-  mst = minimum_spanning_tree(distances)
-  graph = add_eulerian_path(mst, start, distances)
-  graph = add_perfect_matching(graph, distances)
-  return graph
+def christofides_algorithm(G, start):
+    """
+    This function implements Christofide's algorithm to generate a Hamiltonian cycle for a weighted complete graph satisfying the triangle inequality.
+    It also includes the edge weights in the Hamiltonian cycle, as well as the sum of the edge weights.
 
-def minimum_spanning_tree(graph: Dict[str, Dict[str, float]]) -> Dict[str, Dict[str, float]]:
-  # Implement Kruskal's algorithm to find the minimum spanning tree of the graph
-  mst = {v: v for v in graph}
-  edges = []
-  for u in graph:
-    for v in graph[u]:
-      edges.append((graph[u][v], u, v))
-  edges.sort()
-  for w, u, v in edges:
-    if find(u, mst) != find(v, mst):
-      union(u, v, mst)
-  result = {}
-  for u, v in mst.items():
-    if u not in result:
-      result[u] = {}
-    result[u][v] = graph[u][v]
-  return result
+    :param G: a weighted complete graph satisfying the triangle inequality; represented as a list of length-3 tuples, where the first two elements of a
+        tuple are the two endpoints of an edge in G and the third element is the corresponding edge weight.
 
-def find(u, parent):
-  if parent[u] != u:
-    parent[u] = find(parent[u], parent)
-  return parent[u]
+    :param start: the first (and last) node in the Hamiltonian cycle; represented as a string.
 
-def union(u, v, parent):
-  u = find(u, parent)
-  v = find(v, parent)
-  parent[v] = u
+    :return: a weighted Hamiltonian cycle in G that begins and ends at the start input, as well as the sum of the edge weights; represented as a length-2
+        tuple, where the first element is the sum of the edge weights, and the second element is the weighted Hamiltonian cycle, represented similarly as G
+        is (i.e. as a list of length-3 tuples, where the first two elements of a tuple are the two endpoints of an edge in the cycle and the third element
+        is the corresponding edge weight).
+    """
 
-def add_eulerian_path(graph: Dict[str, Dict[str, float]], start: str, distances: Dict[str, Dict[str, float]]) -> Dict[str, Dict[str, float]]:
-  current_vertex = start
-  stack = [current_vertex]
-  while len(stack) > 0:
-    next_vertex = None
-    if graph[current_vertex]:
-      next_vertex = min(graph[current_vertex], key=lambda x: distances[current_vertex][x])
-    if next_vertex:
-      graph[current_vertex][next_vertex] = distances[current_vertex][next_vertex]
-      graph[next_vertex][current_vertex] = distances[next_vertex][current_vertex]
-      del graph[current_vertex][next_vertex]
-      if next_vertex in graph:
-        if current_vertex in graph[next_vertex]:
-          del graph[next_vertex][current_vertex]
-      current_vertex = next_vertex
-      stack.append(current_vertex)
-    else:
-      stack.pop()
-  return graph
+    # Step 1: Convert G to the appropriate format so that it can be used by the networkx library.
+    G_temp = []
+    for edge in G:
+        G_temp.append((edge[0], edge[1], {'weight': edge[2]}))
+    G = nx.Graph(G_temp)
 
+    # Step 2: Calculate a minimum spanning tree T of G.
+    T = nx.minimum_spanning_tree(G)
 
-def add_perfect_matching(graph: Dict[str, Dict[str, float]], distances: Dict[str, Dict[str, float]]) -> Dict[str, Dict[str, float]]:
-  # Implement the algorithm to find a perfect matching in the graph
-  # First, find the odd-degree vertices in the graph
-  odd_vertices = [v for v in graph if len(graph[v]) % 2 == 1]
-  # While there are more than 0 odd-degree vertices:
-  while len(odd_vertices) > 0:
-    # Select an arbitrary odd-degree vertex v
-    v = odd_vertices[0]
-    # Select an arbitrary vertex u that is not connected to v
-    u = [x for x in graph if x not in graph[v]][0]
-    # Add the edge (u, v) to the graph with weight equal to the distance between u and v
-    graph[u][v] = distances[u][v]
-    graph[v][u] = distances[v][u]
-    # Recompute the list of odd-degree vertices
-    odd_vertices = [v for v in graph if len(graph[v]) % 2 == 1]
-  return graph
+    # Step 3: Calculate the set of nodes O with odd degree in T.
+    T_nodes_and_degrees = T.degree
+    O = []
+    for node, degree in T_nodes_and_degrees:
+        if degree % 2 == 1:
+            O.append(node)
 
+    # Step 4: Form the subgraph S of G using only the nodes of O.
+    S = nx.induced_subgraph(G, O)
 
-distances = {
-  'A': {'A': 0, 'B': 10, 'C': 20, 'D': 30},
-  'B': {'A': 10, 'B': 0, 'C': 15, 'D': 25},
-  'C': {'A': 20, 'B': 15, 'C': 0, 'D': 40},
-  'D': {'A': 30, 'B': 25, 'C': 40, 'D': 0}
-}
+    # Step 5: Construct a minimum-weight perfect matching M in this subgraph S.
+    M = nx.min_weight_matching(S)
+    M = nx.Graph(M)  # Convert from a set object to a graph object
 
-print(Christofides(['A','B','C','D'], distances, 'A'))
+    # Step 6: Unite matching and spanning tree T ∪ M to form an Eulerian multigraph H; duplicate edges allowed.
+    H = nx.MultiGraph(list(T.edges) + list(M.edges))
+
+    # Step 7: Calculate Euler tour in H, beginning and ending at the start node.
+    euler_tour = list(nx.eulerian_circuit(H, source=start))
+
+    # Step 8: Remove repeated nodes by creating a list of nodes representing the Hamiltonian cycle.
+    hamiltonian_cycle_node_form = []
+    hamiltonian_cycle_node_form.append(euler_tour[0][0])
+    hamiltonian_cycle_node_form.append(euler_tour[0][1])
+    for edge in euler_tour[1:]:
+        if edge[1] not in hamiltonian_cycle_node_form:
+            hamiltonian_cycle_node_form.append(edge[1])
+    # The hamiltonian cycle should end with the same node it started with.
+    hamiltonian_cycle_node_form.append(euler_tour[0][0])
+
+    # Step 9: Combine the nodes back into tuples to represent the Hamiltonian cycle as a list of edges.
+    #         Moreover, include the weight of each edge, and compute the sum of the edge weights of the cycle
+    hamiltonian_cycle_weighted_edge_form = []
+    total_edge_weight = 0
+    n = len(hamiltonian_cycle_node_form)
+    for i in range(n - 1):
+        node_1 = hamiltonian_cycle_node_form[i]
+        node_2 = hamiltonian_cycle_node_form[i + 1]
+        weight = G.edges[node_1, node_2]['weight']
+        hamiltonian_cycle_weighted_edge_form.append((node_1, node_2, weight))
+        total_edge_weight += weight
+
+    return total_edge_weight, hamiltonian_cycle_weighted_edge_form

@@ -1,94 +1,70 @@
-import itertools
+from itertools import permutations
 import time
 
-def tsp_brute_force(destinations, distances, start):
-    # Get all permutations of the destinations
-    permutations = itertools.permutations(destinations)
+def tsp_brute_force(G, start):
+    # Get a list of all the nodes
+    nodes = list(G.keys())
 
-    # Set the minimum distance to a very large number
-    min_distance = float('inf')
+    # Initialize variables to store the best cycle and its length
+    best_cycle = None
+    best_cycle_length = float('inf')
 
-    # Set the best path to None
-    best_path = None
-
-    # Iterate through the permutations
-    for perm in permutations:
-        # Skip the permutation if the first and second destinations are the same or if the final destination is not the same as the start
-        if perm[0] == perm[1] or perm[-1] != start:
-            continue
-
-        # Set the current distance to the distance between the start and the first destination
-        curr_distance = distances[start][perm[0]]
-
-        # Set the current path to the start
-        curr_path = [start]
-
-        # Iterate through the pairs of destinations in the permutation
-        for i in range(len(perm) - 1):
-            # Add the distance between the current destination and the next destination
-            curr_distance += distances[perm[i]][perm[i + 1]]
-            # Add the current destination to the current path
-            curr_path.append(perm[i])
-
-        # Add the distance between the last destination and the start
-        curr_distance += distances[perm[-1]][start]
-        # Add the last destination to the current path
-        curr_path.append(perm[-1])
-
-        # If the current distance is less than the minimum distance, update the minimum distance and the best path
-        if curr_distance < min_distance:
-            min_distance = curr_distance
-            best_path = curr_path
-
-    # Return the minimum distance and the best path
-    return min_distance, best_path
-
-
-# def is_symmetric(d):
-#     """
-#     This function was built to sanity-check that the distances dictionaries in the test cases below are indeed symmetric.
-#     """
-#     for key, value in d.items():
-#         for inner_key, inner_value in value.items():
-#             if key != inner_key and inner_value != d[inner_key][key]:
-#                 return False
-#     return True
+    # Iterate over all permutations of the nodes
+    for perm in permutations(nodes):
+        # Check if the first node in the permutation is the start node
+        if perm[0] == start:
+            # Calculate the length of the cycle
+            cycle_length = 0
+            for i in range(len(perm) - 1):
+                cycle_length += G[perm[i]][perm[i + 1]]
+            # Add the cost of going from the last node back to the start node
+            cycle_length += G[perm[-1]][start]
+            # Update the best cycle and its length if necessary
+            if cycle_length < best_cycle_length:
+                best_cycle = list(zip(perm, perm[1:] + (start,),
+                                      [G[perm[i]][perm[i + 1]] for i in range(len(perm) - 1)] + [
+                                          G[perm[-1]][start]]))
+                best_cycle_length = cycle_length
+    return best_cycle_length, best_cycle
 
 
 # Test case 1: 4 nodes
-distances = {
+G = {
     'A': {'A': 0, 'B': 2, 'C': 3, 'D': 9},
     'B': {'A': 2, 'B': 0, 'C': 6, 'D': 5},
     'C': {'A': 3, 'B': 6, 'C': 0, 'D': 4},
     'D': {'A': 9, 'B': 5, 'C': 4, 'D': 0}
 }
-print(tsp_brute_force(['A', 'B', 'C', 'D'], distances, 'A'))  # Prints (14, ['A', 'B', 'D', 'C', 'A'])
+print(tsp_brute_force(G, 'A'))
+# Prints (14, [('A', 'B', 2), ('B', 'D', 5), ('D', 'C', 4), ('C', 'A', 3)])
 
 
 # Test case 2: 4 nodes
-distances = {
+G = {
     'A': {'A': 0, 'B': 8, 'C': 6, 'D': 3},
     'B': {'A': 8, 'B': 0, 'C': 5, 'D': 5},
     'C': {'A': 6, 'B': 5, 'C': 0, 'D': 1},
     'D': {'A': 3, 'B': 5, 'C': 1, 'D': 0}
 }
-print(tsp_brute_force(['A', 'B', 'C', 'D'], distances, 'A'))  # Prints (17, ['A', 'B', 'C', 'D', 'A'])
+print(tsp_brute_force(G, 'A'))
+# Prints (17, [('A', 'B', 8), ('B', 'C', 5), ('C', 'D', 1), ('D', 'A', 3)])
 
 
 # Test case 3: 5 nodes
-distances = {
+G = {
     'A': {'A': 0, 'B': 12, 'C': 3, 'D': 6, 'E': 8},
     'B': {'A': 12, 'B': 0, 'C': 4, 'D': 4, 'E': 5},
     'C': {'A': 3, 'B': 4, 'C': 0, 'D': 9, 'E': 1},
     'D': {'A': 6, 'B': 4, 'C': 9, 'D': 0, 'E': 4},
     'E': {'A': 8, 'B': 5, 'C': 1, 'D': 4, 'E': 0},
 }
-print(tsp_brute_force(['A', 'B', 'C', 'D', 'E'], distances, 'A'), '\n)  # Prints (19, ['A', 'C', 'E', 'B', 'D', 'A'])
+print(tsp_brute_force(G, 'A'))
+# Prints (19, [('A', 'C', 3), ('C', 'E', 1), ('E', 'B', 5), ('B', 'D', 4), ('D', 'A', 6)])
 
 
 # Test case 4: 10 nodes
 t1 = time.time()
-distances = {
+G = {
     'A': {'A': 0, 'B': 12, 'C': 3, 'D': 6, 'E': 8, 'F': 7, 'G': 9, 'H': 1, 'I': 13, 'J': 8},
     'B': {'A': 12, 'B': 0, 'C': 2, 'D': 2, 'E': 9, 'F': 14, 'G': 17, 'H': 6, 'I': 3, 'J': 4},
     'C': {'A': 3, 'B': 2, 'C': 0, 'D': 1, 'E': 5, 'F': 5, 'G': 2, 'H': 4, 'I': 1, 'J': 7},
@@ -100,14 +76,15 @@ distances = {
     'I': {'A': 13, 'B': 3, 'C': 1, 'D': 20, 'E': 8, 'F': 1, 'G': 16, 'H': 6, 'I': 0, 'J': 2},
     'J': {'A': 8, 'B': 4, 'C': 7, 'D': 28, 'E': 1, 'F': 2, 'G': 18, 'H': 8, 'I': 2, 'J': 0}
 }
-print(tsp_brute_force(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'], distances, 'A'))  # Prints (24, ['A', 'G', 'C', 'B', 'D', 'E', 'J', 'I', 'F', 'H', 'A'])
+print(tsp_brute_force(G, 'A'))
+# Prints (24, [('A', 'G', 9), ('G', 'C', 2), ('C', 'B', 2), ('B', 'D', 2), ('D', 'E', 3), ('E', 'J', 1), ('J', 'I', 2), ('I', 'F', 1), ('F', 'H', 1), ('H', 'A', 1)])
 t2 = time.time()
 print("Computing the above output with 10 nodes took ", round(t2-t1, 3), " seconds.", '\n')
 
 
 # Test case 5: 11 nodes
 t1 = time.time()
-distances = {
+G = {
     'A': {'A': 0, 'B': 37, 'C': 85, 'D': 64, 'E': 81, 'F': 20, 'G': 63, 'H': 97, 'I': 20, 'J': 58, 'K': 91},
     'B': {'A': 37, 'B': 0, 'C': 97, 'D': 44, 'E': 17, 'F': 14, 'G': 58, 'H': 72, 'I': 54, 'J': 67, 'K': 75},
     'C': {'A': 85, 'B': 97, 'C': 0, 'D': 28, 'E': 40, 'F': 39, 'G': 51, 'H': 79, 'I': 44, 'J': 60, 'K': 11},
@@ -120,7 +97,7 @@ distances = {
     'J': {'A': 58, 'B': 67, 'C': 60, 'D': 66, 'E': 79, 'F': 97, 'G': 70, 'H': 65, 'I': 88, 'J': 0, 'K': 89},
     'K': {'A': 91, 'B': 75, 'C': 11, 'D': 95, 'E': 71, 'F': 54, 'G': 96, 'H': 18, 'I': 56, 'J': 89, 'K': 0}
 }
-print(tsp_brute_force(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'], distances, 'A'))   # Prints (279, ['A', 'F', 'B', 'E', 'H', 'K', 'C', 'D', 'I', 'G', 'J', 'A'])
+print(tsp_brute_force(G, 'A'))
+# Prints (279, [('A', 'F', 20), ('F', 'B', 14), ('B', 'E', 17), ('E', 'H', 23), ('H', 'K', 18), ('K', 'C', 11), ('C', 'D', 28), ('D', 'I', 8), ('I', 'G', 12), ('G', 'J', 70), ('J', 'A', 58)])
 t2 = time.time()
-print("Computing the above output with 11 nodes took ", round(t2-t1, 3), " seconds." )
-
+print("Computing the above output with 11 nodes took ", round(t2-t1, 3), " seconds.")
