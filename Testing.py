@@ -1,25 +1,69 @@
-# Test case 1: 4 nodes
+from TSP_Brute_Force import tsp_brute_force
+from TSP_Greedy import tsp_greedy
+from TSP_Christofides import tsp_christofides
+import time
+
+# Test case: 4 nodes
 G = {
     'A': {'A': 0, 'B': 2, 'C': 3, 'D': 1},
     'B': {'A': 2, 'B': 0, 'C': 4, 'D': 6},
     'C': {'A': 3, 'B': 4, 'C': 0, 'D': 5},
     'D': {'A': 1, 'B': 6, 'C': 5, 'D': 0}
 }
-print(tsp_greedy(G, 'A'))
+start = 'A'
+
+t1_brute_force = time.time()
+brute_force_cycle = tsp_brute_force(G, start)
+t2_brute_force = time.time()
+
+t1_greedy = time.time()
+greedy_cycle = tsp_greedy(G, start)
+t2_greedy = time.time()
+
+t1_christofides = time.time()
+christofides_cycle = tsp_christofides(G, start)
+t2_christofides = time.time()
+
+print('Test case: 4 nodes')
+print('Brute force:  ', tsp_brute_force(G, start))
+print('Greedy:       ', tsp_greedy(G, start))
+print('Christofides: ', tsp_christofides(G, start))
+print('Time (Brute force):',  round(t2_brute_force - t1_brute_force, 3), 'seconds,   ',
+      'Time (Greedy):',       round(t2_greedy - t1_greedy, 3), 'seconds,   ',
+      'Time (Christofides):', round(t2_christofides - t1_christofides, 3), 'seconds', '\n')
 
 
-# Test case 1: 4 nodes
+# Test case: 4 nodes
 G = {
-  'A': {'A': 0, 'B': 9, 'C': 6, 'D': 8},
-  'B': {'A': 9, 'B': 0, 'C': 3, 'D': 2},
-  'C': {'A': 6, 'B': 3, 'C': 0, 'D': 5},
-  'D': {'A': 8, 'B': 2, 'C': 5, 'D': 0}
+    'A': {'A': 0, 'B': 9, 'C': 6, 'D': 8},
+    'B': {'A': 9, 'B': 0, 'C': 3, 'D': 2},
+    'C': {'A': 6, 'B': 3, 'C': 0, 'D': 5},
+    'D': {'A': 8, 'B': 2, 'C': 5, 'D': 0}
 }
 start = 'A'
-print(tsp_christofides(G, start))
+
+t1_brute_force = time.time()
+brute_force_cycle = tsp_brute_force(G, start)
+t2_brute_force = time.time()
+
+t1_greedy = time.time()
+greedy_cycle = tsp_greedy(G, start)
+t2_greedy = time.time()
+
+t1_christofides = time.time()
+christofides_cycle = tsp_christofides(G, start)
+t2_christofides = time.time()
+
+print('Test case: 4 nodes')
+print('Brute force:  ', tsp_brute_force(G, start))
+print('Greedy:       ', tsp_greedy(G, start))
+print('Christofides: ', tsp_christofides(G, start))
+print('Time (Brute force):',  round(t2_brute_force - t1_brute_force, 3), 'seconds,   ',
+      'Time (Greedy):',       round(t2_greedy - t1_greedy, 3), 'seconds,   ',
+      'Time (Christofides):', round(t2_christofides - t1_christofides, 3), 'seconds', '\n')
 
 
-# Test case 1: 4 nodes
+# Test case: 4 nodes
 G = {
     'A': {'A': 0, 'B': 8, 'C': 6, 'D': 3},
     'B': {'A': 8, 'B': 0, 'C': 5, 'D': 5},
@@ -28,7 +72,28 @@ G = {
 }
 start = 'A'
 
+t1_brute_force = time.time()
+brute_force_cycle = tsp_brute_force(G, start)
+t2_brute_force = time.time()
 
+t1_greedy = time.time()
+greedy_cycle = tsp_greedy(G, start)
+t2_greedy = time.time()
+
+t1_christofides = time.time()
+christofides_cycle = tsp_christofides(G, start)
+t2_christofides = time.time()
+
+print('Test case: 4 nodes')
+print('Brute force:  ', tsp_brute_force(G, start))
+print('Greedy:       ', tsp_greedy(G, start))
+print('Christofides: ', tsp_christofides(G, start))
+print('Time (Brute force):',  round(t2_brute_force - t1_brute_force, 3), 'seconds,   ',
+      'Time (Greedy):',       round(t2_greedy - t1_greedy, 3), 'seconds,   ',
+      'Time (Christofides):', round(t2_christofides - t1_christofides, 3), 'seconds', '\n')
+
+
+# Test case: 4 nodes
 G = {
     'A': {'A': 0, 'B': 2, 'C': 3, 'D': 9},
     'B': {'A': 2, 'B': 0, 'C': 6, 'D': 5},
@@ -37,8 +102,28 @@ G = {
 }
 start = 'A'
 
+t1_brute_force = time.time()
+brute_force_cycle = tsp_brute_force(G, start)
+t2_brute_force = time.time()
 
-# Test case 2: 5 nodes
+t1_greedy = time.time()
+greedy_cycle = tsp_greedy(G, start)
+t2_greedy = time.time()
+
+t1_christofides = time.time()
+christofides_cycle = tsp_christofides(G, start)
+t2_christofides = time.time()
+
+print('Test case: 4 nodes')
+print('Brute force:  ', tsp_brute_force(G, start))
+print('Greedy:       ', tsp_greedy(G, start))
+print('Christofides: ', tsp_christofides(G, start))
+print('Time (Brute force):',  round(t2_brute_force - t1_brute_force, 3), 'seconds,   ',
+      'Time (Greedy):',       round(t2_greedy - t1_greedy, 3), 'seconds,   ',
+      'Time (Christofides):', round(t2_christofides - t1_christofides, 3), 'seconds', '\n')
+
+
+# Test case: 5 nodes
 G = {
     'A': {'A': 0, 'B': 2, 'C': 4, 'D': 1, 'E': 3},
     'B': {'A': 2, 'B': 0, 'C': 1, 'D': 3, 'E': 4},
@@ -47,20 +132,60 @@ G = {
     'E': {'A': 3, 'B': 4, 'C': 5, 'D': 6, 'E': 0}
 }
 start = 'A'
-print(tsp_greedy(G, start))
+
+t1_brute_force = time.time()
+brute_force_cycle = tsp_brute_force(G, start)
+t2_brute_force = time.time()
+
+t1_greedy = time.time()
+greedy_cycle = tsp_greedy(G, start)
+t2_greedy = time.time()
+
+t1_christofides = time.time()
+christofides_cycle = tsp_christofides(G, start)
+t2_christofides = time.time()
+
+print('Test case: 5 nodes')
+print('Brute force:  ', tsp_brute_force(G, start))
+print('Greedy:       ', tsp_greedy(G, start))
+print('Christofides: ', tsp_christofides(G, start))
+print('Time (Brute force):',  round(t2_brute_force - t1_brute_force, 3), 'seconds,   ',
+      'Time (Greedy):',       round(t2_greedy - t1_greedy, 3), 'seconds,   ',
+      'Time (Christofides):', round(t2_christofides - t1_christofides, 3), 'seconds', '\n')
 
 
-# Test case 2: 5 nodes
+# Test case: 5 nodes
 G = {
-  'A': {'A': 0, 'B': 10, 'C': 20, 'D': 30, 'E': 40},
-  'B': {'A': 10, 'B': 0, 'C': 15, 'D': 25, 'E': 35},
-  'C': {'A': 20, 'B': 15, 'C': 0, 'D': 5, 'E': 15},
-  'D': {'A': 30, 'B': 25, 'C': 5, 'D': 0, 'E': 10},
-  'E': {'A': 40, 'B': 35, 'C': 15, 'D': 10, 'E': 0}
+    'A': {'A': 0, 'B': 10, 'C': 20, 'D': 30, 'E': 40},
+    'B': {'A': 10, 'B': 0, 'C': 15, 'D': 25, 'E': 35},
+    'C': {'A': 20, 'B': 15, 'C': 0, 'D': 5, 'E': 15},
+    'D': {'A': 30, 'B': 25, 'C': 5, 'D': 0, 'E': 10},
+    'E': {'A': 40, 'B': 35, 'C': 15, 'D': 10, 'E': 0}
 }
 start = 'A'
 
+t1_brute_force = time.time()
+brute_force_cycle = tsp_brute_force(G, start)
+t2_brute_force = time.time()
 
+t1_greedy = time.time()
+greedy_cycle = tsp_greedy(G, start)
+t2_greedy = time.time()
+
+t1_christofides = time.time()
+christofides_cycle = tsp_christofides(G, start)
+t2_christofides = time.time()
+
+print('Test case: 5 nodes')
+print('Brute force:  ', tsp_brute_force(G, start))
+print('Greedy:       ', tsp_greedy(G, start))
+print('Christofides: ', tsp_christofides(G, start))
+print('Time (Brute force):',  round(t2_brute_force - t1_brute_force, 3), 'seconds,   ',
+      'Time (Greedy):',       round(t2_greedy - t1_greedy, 3), 'seconds,   ',
+      'Time (Christofides):', round(t2_christofides - t1_christofides, 3), 'seconds', '\n')
+
+
+# Test case: 5 nodes
 G = {
     'A': {'A': 0, 'B': 12, 'C': 3, 'D': 6, 'E': 8},
     'B': {'A': 12, 'B': 0, 'C': 4, 'D': 4, 'E': 5},
@@ -70,8 +195,28 @@ G = {
 }
 start = 'A'
 
+t1_brute_force = time.time()
+brute_force_cycle = tsp_brute_force(G, start)
+t2_brute_force = time.time()
 
-# Test case 3: 6 nodes
+t1_greedy = time.time()
+greedy_cycle = tsp_greedy(G, start)
+t2_greedy = time.time()
+
+t1_christofides = time.time()
+christofides_cycle = tsp_christofides(G, start)
+t2_christofides = time.time()
+
+print('Test case: 5 nodes')
+print('Brute force:  ', tsp_brute_force(G, start))
+print('Greedy:       ', tsp_greedy(G, start))
+print('Christofides: ', tsp_christofides(G, start))
+print('Time (Brute force):',  round(t2_brute_force - t1_brute_force, 3), 'seconds,   ',
+      'Time (Greedy):',       round(t2_greedy - t1_greedy, 3), 'seconds,   ',
+      'Time (Christofides):', round(t2_christofides - t1_christofides, 3), 'seconds', '\n')
+
+
+# Test case: 6 nodes
 G = {
     'A': {'A': 0, 'B': 3, 'C': 1, 'D': 2, 'E': 5, 'F': 4},
     'B': {'A': 3, 'B': 0, 'C': 4, 'D': 6, 'E': 2, 'F': 3},
@@ -81,10 +226,29 @@ G = {
     'F': {'A': 4, 'B': 3, 'C': 2, 'D': 5, 'E': 6, 'F': 0}
 }
 start = 'A'
-print(tsp_greedy(G, start))
+
+t1_brute_force = time.time()
+brute_force_cycle = tsp_brute_force(G, start)
+t2_brute_force = time.time()
+
+t1_greedy = time.time()
+greedy_cycle = tsp_greedy(G, start)
+t2_greedy = time.time()
+
+t1_christofides = time.time()
+christofides_cycle = tsp_christofides(G, start)
+t2_christofides = time.time()
+
+print('Test case: 6 nodes')
+print('Brute force:  ', tsp_brute_force(G, start))
+print('Greedy:       ', tsp_greedy(G, start))
+print('Christofides: ', tsp_christofides(G, start))
+print('Time (Brute force):',  round(t2_brute_force - t1_brute_force, 3), 'seconds,   ',
+      'Time (Greedy):',       round(t2_greedy - t1_greedy, 3), 'seconds,   ',
+      'Time (Christofides):', round(t2_christofides - t1_christofides, 3), 'seconds', '\n')
 
 
-# Test case 4: 7 nodes
+# Test case: 7 nodes
 G = {
     'A': {'A': 0, 'B': 4, 'C': 1, 'D': 3, 'E': 7, 'F': 5, 'G': 6},
     'B': {'A': 4, 'B': 0, 'C': 6, 'D': 5, 'E': 3, 'F': 2, 'G': 7},
@@ -95,10 +259,29 @@ G = {
     'G': {'A': 6, 'B': 7, 'C': 3, 'D': 2, 'E': 5, 'F': 6, 'G': 0}
 }
 start = 'A'
-print(tsp_greedy(G, start))
+
+t1_brute_force = time.time()
+brute_force_cycle = tsp_brute_force(G, start)
+t2_brute_force = time.time()
+
+t1_greedy = time.time()
+greedy_cycle = tsp_greedy(G, start)
+t2_greedy = time.time()
+
+t1_christofides = time.time()
+christofides_cycle = tsp_christofides(G, start)
+t2_christofides = time.time()
+
+print('Test case: 7 nodes')
+print('Brute force:  ', tsp_brute_force(G, start))
+print('Greedy:       ', tsp_greedy(G, start))
+print('Christofides: ', tsp_christofides(G, start))
+print('Time (Brute force):',  round(t2_brute_force - t1_brute_force, 3), 'seconds,   ',
+      'Time (Greedy):',       round(t2_greedy - t1_greedy, 3), 'seconds,   ',
+      'Time (Christofides):', round(t2_christofides - t1_christofides, 3), 'seconds', '\n')
 
 
-# Test case 5: 8 nodes
+# Test case: 8 nodes
 G = {
     'A': {'A': 0, 'B': 5, 'C': 2, 'D': 4, 'E': 8, 'F': 7, 'G': 3, 'H': 1},
     'B': {'A': 5, 'B': 0, 'C': 3, 'D': 7, 'E': 5, 'F': 6, 'G': 4, 'H': 2},
@@ -111,7 +294,28 @@ G = {
 }
 start = 'A'
 
+t1_brute_force = time.time()
+brute_force_cycle = tsp_brute_force(G, start)
+t2_brute_force = time.time()
 
+t1_greedy = time.time()
+greedy_cycle = tsp_greedy(G, start)
+t2_greedy = time.time()
+
+t1_christofides = time.time()
+christofides_cycle = tsp_christofides(G, start)
+t2_christofides = time.time()
+
+print('Test case: 8 nodes')
+print('Brute force:  ', tsp_brute_force(G, start))
+print('Greedy:       ', tsp_greedy(G, start))
+print('Christofides: ', tsp_christofides(G, start))
+print('Time (Brute force):',  round(t2_brute_force - t1_brute_force, 3), 'seconds,   ',
+      'Time (Greedy):',       round(t2_greedy - t1_greedy, 3), 'seconds,   ',
+      'Time (Christofides):', round(t2_christofides - t1_christofides, 3), 'seconds', '\n')
+
+
+# Test case: 10 nodes
 G = {
     'A': {'A': 0, 'B': 12, 'C': 3, 'D': 6, 'E': 8, 'F': 7, 'G': 9, 'H': 1, 'I': 13, 'J': 8},
     'B': {'A': 12, 'B': 0, 'C': 2, 'D': 2, 'E': 9, 'F': 14, 'G': 17, 'H': 6, 'I': 3, 'J': 4},
@@ -126,7 +330,28 @@ G = {
 }
 start = 'A'
 
-# Test case 5: 8 nodes
+t1_brute_force = time.time()
+brute_force_cycle = tsp_brute_force(G, start)
+t2_brute_force = time.time()
+
+t1_greedy = time.time()
+greedy_cycle = tsp_greedy(G, start)
+t2_greedy = time.time()
+
+t1_christofides = time.time()
+christofides_cycle = tsp_christofides(G, start)
+t2_christofides = time.time()
+
+print('Test case: 9 nodes')
+print('Brute force:  ', tsp_brute_force(G, start))
+print('Greedy:       ', tsp_greedy(G, start))
+print('Christofides: ', tsp_christofides(G, start))
+print('Time (Brute force):',  round(t2_brute_force - t1_brute_force, 3), 'seconds,   ',
+      'Time (Greedy):',       round(t2_greedy - t1_greedy, 3), 'seconds,   ',
+      'Time (Christofides):', round(t2_christofides - t1_christofides, 3), 'seconds', '\n')
+
+
+# Test case: 11 nodes
 G = {
     'A': {'A': 0, 'B': 37, 'C': 85, 'D': 64, 'E': 81, 'F': 20, 'G': 63, 'H': 97, 'I': 20, 'J': 58, 'K': 91},
     'B': {'A': 37, 'B': 0, 'C': 97, 'D': 44, 'E': 17, 'F': 14, 'G': 58, 'H': 72, 'I': 54, 'J': 67, 'K': 75},
@@ -142,6 +367,25 @@ G = {
 }
 start = 'A'
 
+t1_brute_force = time.time()
+brute_force_cycle = tsp_brute_force(G, start)
+t2_brute_force = time.time()
+
+t1_greedy = time.time()
+greedy_cycle = tsp_greedy(G, start)
+t2_greedy = time.time()
+
+t1_christofides = time.time()
+christofides_cycle = tsp_christofides(G, start)
+t2_christofides = time.time()
+
+print('Test case: 11 nodes')
+print('Brute force:  ', tsp_brute_force(G, start))
+print('Greedy:       ', tsp_greedy(G, start))
+print('Christofides: ', tsp_christofides(G, start))
+print('Time (Brute force):',  round(t2_brute_force - t1_brute_force, 3), 'seconds,   ',
+      'Time (Greedy):',       round(t2_greedy - t1_greedy, 3), 'seconds,   ',
+      'Time (Christofides):', round(t2_christofides - t1_christofides, 3), 'seconds', '\n')
 
 
 
