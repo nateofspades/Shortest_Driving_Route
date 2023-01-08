@@ -8,15 +8,15 @@ def tsp_christofides(G, start):
     This function implements Christofide's algorithm to generate a Hamiltonian cycle for a weighted complete graph satisfying the triangle inequality.
     It also includes the edge weights in the Hamiltonian cycle, as well as the sum of the edge weights.
 
-    :param G: a weighted complete graph satisfying the triangle inequality; represented as a list of length-3 tuples, where the first two elements of a
-        tuple are the two endpoints of an edge in G and the third element is the corresponding edge weight.
+    :param G: A dictionary in which the keys are the nodes of a weighted graph, and the value for a node N is a dictionary of all nodes as keys and
+              their edge weights with N as values.
 
     :param start: the first (and last) node in the Hamiltonian cycle; represented as a string.
 
     :return: a weighted Hamiltonian cycle in G that begins and ends at the start input, as well as the sum of the edge weights; represented as a length-2
-        tuple, where the first element is the sum of the edge weights, and the second element is the weighted Hamiltonian cycle, represented similarly as G
-        is (i.e. as a list of length-3 tuples, where the first two elements of a tuple are the two endpoints of an edge in the cycle and the third element
-        is the corresponding edge weight).
+        tuple, where the first element is the sum of the edge weights, and the second element is the weighted Hamiltonian cycle, represented as a list of
+        length-3 tuples, where the first two elements of a tuple are the two nodes of an edge in the cycle and the third element is the corresponding
+        edge weight.
     """
 
     # Step 1: Convert G to the appropriate format so that it can be used by the networkx library.
@@ -72,8 +72,10 @@ def tsp_christofides(G, start):
 def convert_graph_to_networkx_form(G):
     """
     This is a helper function for tsp_christofides(). It converts the input graph G into a format that allows it to be input into various networkx functions.
+
     :param G: A dictionary in which the keys are the nodes of a weighted graph,
               and the value for a node N is a dictionary of all nodes as keys and their edge weights with N as values.
+
     :return: A networkx graph object.
     """
 
@@ -101,7 +103,7 @@ G = {
   'D': {'A': 8, 'B': 2, 'C': 5, 'D': 0}
 }
 start = 'A'
-print(tsp_christofides(G, 'A'))  # Prints ['A', 'C', 'B', 'D', 'A']
+print(tsp_christofides(G, 'A'))  # Prints (19, [('A', 'D', 8), ('D', 'B', 2), ('B', 'C', 3), ('C', 'A', 6)])
 
 
 # Test case 2: 5 nodes
@@ -113,4 +115,4 @@ G = {
   'E': {'A': 40, 'B': 35, 'C': 15, 'D': 10, 'E': 0}
 }
 start = 'A'
-print(tsp_christofides(G, 'A'))  # Prints ['A', 'B', 'C', 'D', 'E', 'A']
+print(tsp_christofides(G, 'A'))  # Prints (80, [('A', 'E', 40), ('E', 'D', 10), ('D', 'C', 5), ('C', 'B', 15), ('B', 'A', 10)])
