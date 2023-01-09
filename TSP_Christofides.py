@@ -110,7 +110,7 @@ def unit_tests():
         'D': {'A': 9, 'B': 5, 'C': 4, 'D': 0}
     }
     start = 'A'
-    tsp_christofides(G, start) == (14, [('A', 'C', 3), ('C', 'D', 4), ('D', 'B', 5), ('B', 'A', 2)])
+    assert tsp_christofides(G, start) == (14, [('A', 'C', 3), ('C', 'D', 4), ('D', 'B', 5), ('B', 'A', 2)])
 
     # Unit test 2
     G = {
@@ -120,7 +120,7 @@ def unit_tests():
         'D': {'A': 8, 'B': 2, 'C': 5, 'D': 0}
     }
     start = 'A'
-    tsp_christofides(G, start) == (19, [('A', 'D', 8), ('D', 'B', 2), ('B', 'C', 3), ('C', 'A', 6)])
+    assert tsp_christofides(G, start) == (19, [('A', 'D', 8), ('D', 'B', 2), ('B', 'C', 3), ('C', 'A', 6)])
 
     # Unit test 3
     G = {
@@ -130,7 +130,7 @@ def unit_tests():
         'D': {'A': 3, 'B': 5, 'C': 1, 'D': 0}
     }
     start = 'A'
-    tsp_christofides(G, start) == (17, [('A', 'B', 8), ('B', 'C', 5), ('C', 'D', 1), ('D', 'A', 3)])
+    assert tsp_christofides(G, start) == (17, [('A', 'B', 8), ('B', 'C', 5), ('C', 'D', 1), ('D', 'A', 3)])
 
     # Unit test 4
     G = {
@@ -140,7 +140,7 @@ def unit_tests():
         'D': {'A': 1, 'B': 6, 'C': 5, 'D': 0}
     }
     start = 'A'
-    tsp_christofides(G, start) == (14, [('A', 'C', 3), ('C', 'B', 4), ('B', 'D', 6), ('D', 'A', 1)])
+    assert tsp_christofides(G, start) == (14, [('A', 'C', 3), ('C', 'B', 4), ('B', 'D', 6), ('D', 'A', 1)])
 
     # Unit test 5
     G = {
@@ -151,7 +151,7 @@ def unit_tests():
         'E': {'A': 3, 'B': 4, 'C': 5, 'D': 6, 'E': 0}
     }
     start = 'A'
-    tsp_christofides(G, start) == (11, [('A', 'E', 3), ('E', 'B', 4), ('B', 'C', 1), ('C', 'D', 2), ('D', 'A', 1)])
+    assert tsp_christofides(G, start) == (11, [('A', 'E', 3), ('E', 'B', 4), ('B', 'C', 1), ('C', 'D', 2), ('D', 'A', 1)])
 
     # Unit test 6
     G = {
@@ -162,7 +162,7 @@ def unit_tests():
         'E': {'A': 40, 'B': 35, 'C': 15, 'D': 10, 'E': 0}
     }
     start = 'A'
-    tsp_christofides(G, start) == (80, [('A', 'E', 40), ('E', 'D', 10), ('D', 'C', 5), ('C', 'B', 15), ('B', 'A', 10)])
+    assert tsp_christofides(G, start) == (80, [('A', 'E', 40), ('E', 'D', 10), ('D', 'C', 5), ('C', 'B', 15), ('B', 'A', 10)])
 
     # Unit test 7
     G = {
@@ -173,8 +173,7 @@ def unit_tests():
         'E': {'A': 8, 'B': 5, 'C': 1, 'D': 4, 'E': 0},
     }
     start = 'A'
-    tsp_christofides(G, start) == (23, [('A', 'D', 6), ('D', 'B', 4), ('B', 'C', 4), ('C', 'E', 1), ('E', 'A', 8)])
-
+    assert tsp_christofides(G, start) == (23, [('A', 'D', 6), ('D', 'B', 4), ('B', 'C', 4), ('C', 'E', 1), ('E', 'A', 8)])
 
 if __name__ == '__main__':
     unit_tests()
