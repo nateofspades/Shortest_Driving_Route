@@ -1,6 +1,8 @@
 from TSP_Brute_Force import tsp_brute_force
 from TSP_Greedy import tsp_greedy
 from TSP_Christofides import tsp_christofides
+from TSP_Christofides_2 import tsp_christofides_2
+
 from Create_Graph_Function import create_graph_n_nodes
 import time
 
@@ -56,6 +58,7 @@ t1_christofides = time.time()
 christofides_cycle = tsp_christofides(G, start)
 t2_christofides = time.time()
 
+
 print('Test case: 4 nodes')
 print('Brute force:  ', tsp_brute_force(G, start))     # Prints (19, [('A', 'C', 6), ('C', 'B', 3), ('B', 'D', 2), ('D', 'A', 8)])
 print('Greedy:       ', tsp_greedy(G, start))          # Prints (19, [('A', 'C', 6), ('C', 'B', 3), ('B', 'D', 2), ('D', 'A', 8)])
@@ -85,6 +88,7 @@ t2_greedy = time.time()
 t1_christofides = time.time()
 christofides_cycle = tsp_christofides(G, start)
 t2_christofides = time.time()
+
 
 print('Test case: 4 nodes')
 print('Brute force:  ', tsp_brute_force(G, start))     # Prints (17, [('A', 'B', 8), ('B', 'C', 5), ('C', 'D', 1), ('D', 'A', 3)])
@@ -425,29 +429,31 @@ print('Time (Brute force):',  round(t2_brute_force - t1_brute_force, 3), 'second
       'Time (Christofides):', round(t2_christofides - t1_christofides, 3), 'seconds', '\n')
 
 
+
+
 # Test case: 12 nodes
-G = create_graph_n_nodes(12)   # A graph of 12 nodes.
-start = 'N1'
-
-t1_brute_force = time.time()
-brute_force_cycle = tsp_brute_force(G, start)
-t2_brute_force = time.time()
-
-t1_greedy = time.time()
-greedy_cycle = tsp_greedy(G, start)
-t2_greedy = time.time()
-
-t1_christofides = time.time()
-christofides_cycle = tsp_christofides(G, start)
-t2_christofides = time.time()
-
-print('Test case: 12 nodes')
-print('Brute force:  ', tsp_brute_force(G, start))     # Prints
-print('Greedy:       ', tsp_greedy(G, start))          # Prints
-print('Christofides: ', tsp_christofides(G, start))    # Prints
-print('Time (Brute force):',  round(t2_brute_force - t1_brute_force, 3), 'seconds,   ',
-      'Time (Greedy):',       round(t2_greedy - t1_greedy, 3), 'seconds,   ',
-      'Time (Christofides):', round(t2_christofides - t1_christofides, 3), 'seconds', '\n')
+# G = create_graph_n_nodes(12)   # A graph of 12 nodes.
+# start = 'N1'
+#
+# t1_brute_force = time.time()
+# brute_force_cycle = tsp_brute_force(G, start)
+# t2_brute_force = time.time()
+#
+# t1_greedy = time.time()
+# greedy_cycle = tsp_greedy(G, start)
+# t2_greedy = time.time()
+#
+# t1_christofides = time.time()
+# christofides_cycle = tsp_christofides(G, start)
+# t2_christofides = time.time()
+#
+# print('Test case: 12 nodes')
+# print('Brute force:  ', tsp_brute_force(G, start))     # Prints
+# print('Greedy:       ', tsp_greedy(G, start))          # Prints
+# print('Christofides: ', tsp_christofides(G, start))    # Prints
+# print('Time (Brute force):',  round(t2_brute_force - t1_brute_force, 3), 'seconds,   ',
+#       'Time (Greedy):',       round(t2_greedy - t1_greedy, 3), 'seconds,   ',
+#       'Time (Christofides):', round(t2_christofides - t1_christofides, 3), 'seconds', '\n')
 
 
 # # Test case: 13 nodes
