@@ -44,7 +44,7 @@ def generate_permutations(G, start):
             permutation_list.append(tuple([start] + list(perm)))
     return permutation_list
 
-# Unit tests
+
 def unit_tests():
     """
     A minimum total edge weight Hamiltonian cycle was computed by hand for some graphs on 4 nodes and 5 nodes.

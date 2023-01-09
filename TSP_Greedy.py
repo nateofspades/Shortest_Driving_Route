@@ -28,10 +28,13 @@ def tsp_greedy(G, start):
 
     return (total_weight, path)
 
-# Unit tests
+
 def unit_tests():
     """
-
+    A Hamiltonian cycle was computed by hand using a greedy approach for graphs of various sizes. These by-hand computations
+    are compared to the outputs of tsp_greedy(). Note that the greedy approach is not deterministic because sometimes the
+    current node has 2 or more available adjacent nodes which both have the same minimum edge weight. The greedy approach can
+    output different cycles, so a failure of the unit tests does not imply a failure of code.
     """
     # Unit test 1
     G = {

@@ -28,7 +28,7 @@ t2_christofides = time.time()
 print('Test case: 4 nodes')
 print('Brute force:  ', tsp_brute_force(G, start))     # Prints (14, [('A', 'B', 2), ('B', 'D', 5), ('D', 'C', 4), ('C', 'A', 3)])
 print('Greedy:       ', tsp_greedy(G, start))          # Prints (14, [('A', 'B', 2), ('B', 'D', 5), ('D', 'C', 4), ('C', 'A', 3)])
-print('Christofides: ', tsp_christofides(G, start))    # Prints
+print('Christofides: ', tsp_christofides(G, start))    # Prints (14, [('A', 'C', 3), ('C', 'D', 4), ('D', 'B', 5), ('B', 'A', 2)])
 print('Time (Brute force):',  round(t2_brute_force - t1_brute_force, 3), 'seconds,   ',
       'Time (Greedy):',       round(t2_greedy - t1_greedy, 3), 'seconds,   ',
       'Time (Christofides):', round(t2_christofides - t1_christofides, 3), 'seconds', '\n')
@@ -88,7 +88,7 @@ t2_christofides = time.time()
 print('Test case: 4 nodes')
 print('Brute force:  ', tsp_brute_force(G, start))     # Prints (17, [('A', 'B', 8), ('B', 'C', 5), ('C', 'D', 1), ('D', 'A', 3)])
 print('Greedy:       ', tsp_greedy(G, start))          # Prints (17, [('A', 'D', 3), ('D', 'C', 1), ('C', 'B', 5), ('B', 'A', 8)])
-print('Christofides: ', tsp_christofides(G, start))    # Prints
+print('Christofides: ', tsp_christofides(G, start))    # Prints (17, [('A', 'B', 8), ('B', 'C', 5), ('C', 'D', 1), ('D', 'A', 3)])
 print('Time (Brute force):',  round(t2_brute_force - t1_brute_force, 3), 'seconds,   ',
       'Time (Greedy):',       round(t2_greedy - t1_greedy, 3), 'seconds,   ',
       'Time (Christofides):', round(t2_christofides - t1_christofides, 3), 'seconds', '\n')
@@ -118,7 +118,7 @@ t2_christofides = time.time()
 print('Test case: 4 nodes')
 print('Brute force:  ', tsp_brute_force(G, start))     # Prints (12, [('A', 'B', 2), ('B', 'C', 4), ('C', 'D', 5), ('D', 'A', 1)])
 print('Greedy:       ', tsp_greedy(G, start))          # Prints (12, [('A', 'D', 1), ('D', 'C', 5), ('C', 'B', 4), ('B', 'A', 2)])
-print('Christofides: ', tsp_christofides(G, start))    # Prints
+print('Christofides: ', tsp_christofides(G, start))    # Prints (14, [('A', 'C', 3), ('C', 'B', 4), ('B', 'D', 6), ('D', 'A', 1)])
 print('Time (Brute force):',  round(t2_brute_force - t1_brute_force, 3), 'seconds,   ',
       'Time (Greedy):',       round(t2_greedy - t1_greedy, 3), 'seconds,   ',
       'Time (Christofides):', round(t2_christofides - t1_christofides, 3), 'seconds', '\n')
@@ -149,7 +149,7 @@ t2_christofides = time.time()
 print('Test case: 5 nodes')
 print('Brute force:  ', tsp_brute_force(G, start))     # Prints (11, [('A', 'D', 1), ('D', 'C', 2), ('C', 'B', 1), ('B', 'E', 4), ('E', 'A', 3)])
 print('Greedy:       ', tsp_greedy(G, start))          # Prints (11, [('A', 'D', 1), ('D', 'C', 2), ('C', 'B', 1), ('B', 'E', 4), ('E', 'A', 3)])
-print('Christofides: ', tsp_christofides(G, start))    # Prints
+print('Christofides: ', tsp_christofides(G, start))    # Prints (11, [('A', 'E', 3), ('E', 'B', 4), ('B', 'C', 1), ('C', 'D', 2), ('D', 'A', 1)])
 print('Time (Brute force):',  round(t2_brute_force - t1_brute_force, 3), 'seconds,   ',
       'Time (Greedy):',       round(t2_greedy - t1_greedy, 3), 'seconds,   ',
       'Time (Christofides):', round(t2_christofides - t1_christofides, 3), 'seconds', '\n')
@@ -211,7 +211,7 @@ t2_christofides = time.time()
 print('Test case: 5 nodes')
 print('Brute force:  ', tsp_brute_force(G, start))     # Prints (19, [('A', 'C', 3), ('C', 'E', 1), ('E', 'B', 5), ('B', 'D', 4), ('D', 'A', 6)])
 print('Greedy:       ', tsp_greedy(G, start))          # Prints (24, [('A', 'C', 3), ('C', 'E', 1), ('E', 'D', 4), ('D', 'B', 4), ('B', 'A', 12)])
-print('Christofides: ', tsp_christofides(G, start))    # Prints
+print('Christofides: ', tsp_christofides(G, start))    # Prints (23, [('A', 'D', 6), ('D', 'B', 4), ('B', 'C', 4), ('C', 'E', 1), ('E', 'A', 8)])
 print('Time (Brute force):',  round(t2_brute_force - t1_brute_force, 3), 'seconds,   ',
       'Time (Greedy):',       round(t2_greedy - t1_greedy, 3), 'seconds,   ',
       'Time (Christofides):', round(t2_christofides - t1_christofides, 3), 'seconds', '\n')
