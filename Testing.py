@@ -27,7 +27,7 @@ t2_christofides = time.time()
 
 print('Test case: 4 nodes')
 print('Brute force:  ', tsp_brute_force(G, start))     # Prints (14, [('A', 'B', 2), ('B', 'D', 5), ('D', 'C', 4), ('C', 'A', 3)])
-print('Greedy:       ', tsp_greedy(G, start))          # Prints
+print('Greedy:       ', tsp_greedy(G, start))          # Prints (14, [('A', 'B', 2), ('B', 'D', 5), ('D', 'C', 4), ('C', 'A', 3)])
 print('Christofides: ', tsp_christofides(G, start))    # Prints
 print('Time (Brute force):',  round(t2_brute_force - t1_brute_force, 3), 'seconds,   ',
       'Time (Greedy):',       round(t2_greedy - t1_greedy, 3), 'seconds,   ',
