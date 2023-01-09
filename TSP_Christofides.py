@@ -93,26 +93,3 @@ def convert_graph_to_networkx_form(G):
     G_networkx_form = nx.Graph(G_networkx_form)
 
     return G_networkx_form
-
-
-# # Test case 1: 4 nodes
-# G = {
-#   'A': {'A': 0, 'B': 9, 'C': 6, 'D': 8},
-#   'B': {'A': 9, 'B': 0, 'C': 3, 'D': 2},
-#   'C': {'A': 6, 'B': 3, 'C': 0, 'D': 5},
-#   'D': {'A': 8, 'B': 2, 'C': 5, 'D': 0}
-# }
-# start = 'A'
-# print(tsp_christofides(G, start))  # Prints (19, [('A', 'D', 8), ('D', 'B', 2), ('B', 'C', 3), ('C', 'A', 6)])
-#
-#
-# # Test case 2: 5 nodes
-# G = {
-#   'A': {'A': 0, 'B': 10, 'C': 20, 'D': 30, 'E': 40},
-#   'B': {'A': 10, 'B': 0, 'C': 15, 'D': 25, 'E': 35},
-#   'C': {'A': 20, 'B': 15, 'C': 0, 'D': 5, 'E': 15},
-#   'D': {'A': 30, 'B': 25, 'C': 5, 'D': 0, 'E': 10},
-#   'E': {'A': 40, 'B': 35, 'C': 15, 'D': 10, 'E': 0}
-# }
-# start = 'A'
-# print(tsp_christofides(G, start))  # Prints (80, [('A', 'E', 40), ('E', 'D', 10), ('D', 'C', 5), ('C', 'B', 15), ('B', 'A', 10)])
