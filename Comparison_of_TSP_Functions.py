@@ -427,7 +427,7 @@ print('Time (Brute force):',  round(t2_brute_force - t1_brute_force, 3), 'second
 
 # Test case: 12 nodes
 G = create_graph_n_nodes(12)   # A graph of 12 nodes.
-start = 1
+start = 'N1'
 
 t1_brute_force = time.time()
 brute_force_cycle = tsp_brute_force(G, start)
@@ -450,29 +450,29 @@ print('Time (Brute force):',  round(t2_brute_force - t1_brute_force, 3), 'second
       'Time (Christofides):', round(t2_christofides - t1_christofides, 3), 'seconds', '\n')
 
 
-# Test case: 13 nodes
-G = create_graph_n_nodes(13)   # A graph of 13 nodes.
-start = 1
-
-t1_brute_force = time.time()
-brute_force_cycle = tsp_brute_force(G, start)
-t2_brute_force = time.time()
-
-t1_greedy = time.time()
-greedy_cycle = tsp_greedy(G, start)
-t2_greedy = time.time()
-
-t1_christofides = time.time()
-christofides_cycle = tsp_christofides(G, start)
-t2_christofides = time.time()
-
-print('Test case: 13 nodes')
-print('Brute force:  ', tsp_brute_force(G, start))     # Prints
-print('Greedy:       ', tsp_greedy(G, start))          # Prints
-print('Christofides: ', tsp_christofides(G, start))    # Prints
-print('Time (Brute force):',  round(t2_brute_force - t1_brute_force, 3), 'seconds,   ',
-      'Time (Greedy):',       round(t2_greedy - t1_greedy, 3), 'seconds,   ',
-      'Time (Christofides):', round(t2_christofides - t1_christofides, 3), 'seconds', '\n')
+# # Test case: 13 nodes
+# G = create_graph_n_nodes(13)   # A graph of 13 nodes.
+# start = 1
+#
+# t1_brute_force = time.time()
+# brute_force_cycle = tsp_brute_force(G, start)
+# t2_brute_force = time.time()
+#
+# t1_greedy = time.time()
+# greedy_cycle = tsp_greedy(G, start)
+# t2_greedy = time.time()
+#
+# t1_christofides = time.time()
+# christofides_cycle = tsp_christofides(G, start)
+# t2_christofides = time.time()
+#
+# print('Test case: 13 nodes')
+# print('Brute force:  ', tsp_brute_force(G, start))     # Prints
+# print('Greedy:       ', tsp_greedy(G, start))          # Prints
+# print('Christofides: ', tsp_christofides(G, start))    # Prints
+# print('Time (Brute force):',  round(t2_brute_force - t1_brute_force, 3), 'seconds,   ',
+#       'Time (Greedy):',       round(t2_greedy - t1_greedy, 3), 'seconds,   ',
+#       'Time (Christofides):', round(t2_christofides - t1_christofides, 3), 'seconds', '\n')
 
 
 

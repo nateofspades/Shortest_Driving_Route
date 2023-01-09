@@ -25,11 +25,12 @@ def tsp_brute_force(G, start):
 
     return best_cycle_length, best_cycle
 
+
 def generate_permutations(G, start):
     """
     This generates all permutations of the nodes of G corresponding to cycles which begin at start, but with reversals omitted.
-    For example, if G has nodes "A", "B", "C", "D" and start="A", the output list would include permutation ["A", "B", "C", "D"]
-    (corresponding to cycle ABCDA) but the output list would not include ["A", "D", "C", "B"] (corresponding to cycle ADCBA).
+    For example, if G has nodes "A", "B", "C", "D" and start="A", the output list would include permutation ("A", "B", "C", "D")
+    (corresponding to cycle ABCDA) but the output list would not include ("A", "D", "C", "B") (corresponding to cycle ADCBA).
     This is because ADCBA is the reversal of ABCDA, so they're essentially the same cycle and need not be considered twice when
     searching for a minimum-weight Hamiltonian cycle.
     :param G:
