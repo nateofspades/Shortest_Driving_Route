@@ -2,12 +2,6 @@ from TSP_Brute_Force import tsp_brute_force
 from TSP_Greedy import tsp_greedy
 from TSP_Christofides import tsp_christofides
 
-
-
-
-
-
-
 def tsp(G, start, max_brute_force_n = 11):
 
     nodes = list(G.keys())
