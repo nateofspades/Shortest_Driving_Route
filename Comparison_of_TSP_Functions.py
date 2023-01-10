@@ -427,8 +427,6 @@ print('Time (Brute force):',  round(t2_brute_force - t1_brute_force, 3), 'second
       'Time (Christofides):', round(t2_christofides - t1_christofides, 3), 'seconds', '\n')
 
 
-
-
 # Test case: 12 nodes
 nodes = ['N1','N2','N3','N4','N5','N6','N7','N8','N9','N10','N11','N12']
 max_weight = 76
@@ -456,29 +454,133 @@ print('Time (Brute force):',  round(t2_brute_force - t1_brute_force, 3), 'second
       'Time (Christofides):', round(t2_christofides - t1_christofides, 3), 'seconds', '\n')
 
 
-# # Test case: 13 nodes
-# G = create_graph_n_nodes(13)   # A graph of 13 nodes.
-# start = 1
-#
-# t1_brute_force = time.time()
-# brute_force_cycle = tsp_brute_force(G, start)
-# t2_brute_force = time.time()
-#
-# t1_greedy = time.time()
-# greedy_cycle = tsp_greedy(G, start)
-# t2_greedy = time.time()
-#
-# t1_christofides = time.time()
-# christofides_cycle = tsp_christofides(G, start)
-# t2_christofides = time.time()
-#
-# print('Test case: 13 nodes')
-# print('Brute force:  ', brute_force_cycle)     # Prints
-# print('Greedy:       ', greedy_cycle)          # Prints
-# print('Christofides: ', christofides_cycle)    # Prints
-# print('Time (Brute force):',  round(t2_brute_force - t1_brute_force, 3), 'seconds,   ',
-#       'Time (Greedy):',       round(t2_greedy - t1_greedy, 3), 'seconds,   ',
-#       'Time (Christofides):', round(t2_christofides - t1_christofides, 3), 'seconds', '\n')
+# Test case: 13 nodes
+nodes = ['N1','N2','N3','N4','N5','N6','N7','N8','N9','N10','N11','N12','N13']
+max_weight = 100
+G = create_random_G(nodes, max_weight)   # A graph of 13 nodes.
+start = 'N1'
+
+t1_brute_force = time.time()
+brute_force_cycle = tsp_brute_force(G, start)
+t2_brute_force = time.time()
+
+t1_greedy = time.time()
+greedy_cycle = tsp_greedy(G, start)
+t2_greedy = time.time()
+
+t1_christofides = time.time()
+christofides_cycle = tsp_christofides(G, start)
+t2_christofides = time.time()
+
+print('Test case: 13 nodes')
+print('Brute force:  ', brute_force_cycle)     # Prints
+print('Greedy:       ', greedy_cycle)          # Prints
+print('Christofides: ', christofides_cycle)    # Prints
+print('Time (Brute force):',  round(t2_brute_force - t1_brute_force, 3), 'seconds,   ',
+      'Time (Greedy):',       round(t2_greedy - t1_greedy, 3), 'seconds,   ',
+      'Time (Christofides):', round(t2_christofides - t1_christofides, 3), 'seconds', '\n')
 
 
 
+# Test case: 50 nodes (brute force excluded)
+nodes = list(range(50))
+max_weight = 250
+G = create_random_G(nodes, max_weight)   # A graph of 50 nodes.
+start = 0
+
+t1_greedy = time.time()
+greedy_cycle = tsp_greedy(G, start)
+t2_greedy = time.time()
+
+t1_christofides = time.time()
+christofides_cycle = tsp_christofides(G, start)
+t2_christofides = time.time()
+
+print('Test case: 50 nodes')
+print('Greedy:       ', greedy_cycle)          # Prints
+print('Christofides: ', christofides_cycle)    # Prints
+print('Time (Greedy):',       round(t2_greedy - t1_greedy, 3), 'seconds,   ',
+      'Time (Christofides):', round(t2_christofides - t1_christofides, 3), 'seconds', '\n')
+
+
+# Test case: 100 nodes (brute force excluded)
+nodes = list(range(100))
+max_weight = 250
+G = create_random_G(nodes, max_weight)   # A graph of 100 nodes.
+start = 0
+
+t1_greedy = time.time()
+greedy_cycle = tsp_greedy(G, start)
+t2_greedy = time.time()
+
+t1_christofides = time.time()
+christofides_cycle = tsp_christofides(G, start)
+t2_christofides = time.time()
+
+print('Test case: 100 nodes')
+print('Greedy:       ', greedy_cycle)          # Prints
+print('Christofides: ', christofides_cycle)    # Prints
+print('Time (Greedy):',       round(t2_greedy - t1_greedy, 3), 'seconds,   ',
+      'Time (Christofides):', round(t2_christofides - t1_christofides, 3), 'seconds', '\n')
+
+# Test case: 200 nodes (brute force excluded)
+nodes = list(range(200))
+max_weight = 250
+G = create_random_G(nodes, max_weight)   # A graph of 200 nodes.
+start = 0
+
+t1_greedy = time.time()
+greedy_cycle = tsp_greedy(G, start)
+t2_greedy = time.time()
+
+t1_christofides = time.time()
+christofides_cycle = tsp_christofides(G, start)
+t2_christofides = time.time()
+
+print('Test case: 200 nodes')
+print('Greedy:       ', greedy_cycle)          # Prints
+print('Christofides: ', christofides_cycle)    # Prints
+print('Time (Greedy):',       round(t2_greedy - t1_greedy, 3), 'seconds,   ',
+      'Time (Christofides):', round(t2_christofides - t1_christofides, 3), 'seconds', '\n')
+
+
+# Test case: 400 nodes (brute force excluded)
+nodes = list(range(400))
+max_weight = 250
+G = create_random_G(nodes, max_weight)   # A graph of 400 nodes.
+start = 0
+
+t1_greedy = time.time()
+greedy_cycle = tsp_greedy(G, start)
+t2_greedy = time.time()
+
+t1_christofides = time.time()
+christofides_cycle = tsp_christofides(G, start)
+t2_christofides = time.time()
+
+print('Test case: 400 nodes')
+print('Greedy:       ', greedy_cycle)          # Prints
+print('Christofides: ', christofides_cycle)    # Prints
+print('Time (Greedy):',       round(t2_greedy - t1_greedy, 3), 'seconds,   ',
+      'Time (Christofides):', round(t2_christofides - t1_christofides, 3), 'seconds', '\n')
+
+
+# Test case: 1000 nodes (brute force excluded)
+nodes = list(range(1000))
+max_weight = 250
+G = create_random_G(nodes, max_weight)   # A graph of 1000 nodes.
+start = 0
+
+t1_greedy = time.time()
+greedy_cycle = tsp_greedy(G, start)
+t2_greedy = time.time()
+
+t1_christofides = time.time()
+christofides_cycle = tsp_christofides(G, start)
+t2_christofides = time.time()
+
+print('Test case: 1000 nodes')
+print('Greedy:       ', greedy_cycle)          # Prints
+print('Christofides: ', christofides_cycle)    # Prints
+print('Time (Greedy):',       round(t2_greedy - t1_greedy, 3), 'seconds,   ',
+      'Time (Christofides):', round(t2_christofides - t1_christofides, 3), 'seconds', '\n')
