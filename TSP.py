@@ -46,7 +46,9 @@ def tsp(G, start, max_brute_force_n = 11):
         if cycle_christofides_weight < cycle_greedy_weight:
             return cycle_christofides_with_weight
 
-# Example function calls on tsp(G, start, max_brute_force_n)
+
+### EXAMPLES OF FUNCTION CALLS ON tsp(G, start, max_brute_force_n)
+
 
 # G has 2 nodes, so there is only one possible Hamiltonian cycle. This cycle is hard-coded without involvement of algorithms.
 G = {
