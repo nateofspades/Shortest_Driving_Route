@@ -5,7 +5,7 @@ def tsp_brute_force(G, start):
     # Get a list of all the nodes
     nodes = list(G.keys())
 
-    # Initialize variables to store the best cycle and its length.
+    # Initialize variables to store the best cycle and its weight.
     best_cycle = None
     best_cycle_weight = float('inf')
 

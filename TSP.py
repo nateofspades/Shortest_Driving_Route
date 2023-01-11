@@ -27,7 +27,7 @@ def tsp(G, start, max_brute_force_n = 11):
     # If G has at least 4 nodes and at most max_brute_force_n nodes, then all possible Hamiltonian cycles are computed
     # and one with the least total edge weight is selected.
     if 4 <= n <= max_brute_force_n:
-        return tsp_brute_force(G,start)
+        return tsp_brute_force(G, start)
 
     # If G has more than max_brute_force_n nodes then 2 Hamiltonian cycles are computed - one using the greedy approach
     # and one using Christofides algorithm. The one with the lesser total edge weight is selected. (If there is a tie,
