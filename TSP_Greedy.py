@@ -1,32 +1,32 @@
 def tsp_greedy(G, start):
-    visited = []
-    current = start
-    total_weight = 0
-    path = []
+    visited_nodes = []
+    current_node = start
+    cycle_weight = 0
+    cycle = []
 
     # Visit all nodes in the graph
-    while len(visited) < len(G):
-        visited.append(current)
+    while len(visited_nodes) < len(G):
+        visited_nodes.append(current_node)
         min_weight = float('inf')
         next_node = None
 
         # Find the closest unvisited node
-        for node, weight in G[current].items():
-            if node not in visited and weight < min_weight:
+        for node, weight in G[current_node].items():
+            if node not in visited_nodes and weight < min_weight:
                 min_weight = weight
                 next_node = node
 
-        # Add the edge to the path and update the total weight if a next node was found
+        # Add the edge to the cycle and update the total weight if a next node was found
         if next_node is not None:
-            path.append((current, next_node, min_weight))
-            total_weight += min_weight
-            current = next_node
+            cycle.append((current_node, next_node, min_weight))
+            cycle_weight += min_weight
+            current_node = next_node
 
     # Return to the start node
-    path.append((current, start, G[current][start]))
-    total_weight += G[current][start]
+    cycle.append((current_node, start, G[current_node][start]))
+    cycle_weight += G[current_node][start]
 
-    return (total_weight, path)
+    return cycle_weight, cycle
 
 
 def unit_tests():

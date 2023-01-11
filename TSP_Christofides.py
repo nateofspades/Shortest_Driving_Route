@@ -3,6 +3,7 @@
 
 import networkx as nx
 
+
 def tsp_christofides(G, start):
     """
     This function implements Christofide's algorithm to generate a Hamiltonian cycle for a weighted complete graph satisfying the triangle inequality.
@@ -46,28 +47,29 @@ def tsp_christofides(G, start):
     euler_tour = list(nx.eulerian_circuit(H, source=start))
 
     # Step 8: Remove repeated nodes by creating a list of nodes representing the Hamiltonian cycle.
-    hamiltonian_cycle_node_form = []
-    hamiltonian_cycle_node_form.append(euler_tour[0][0])
-    hamiltonian_cycle_node_form.append(euler_tour[0][1])
+    cycle_node_form = []
+    cycle_node_form.append(euler_tour[0][0])
+    cycle_node_form.append(euler_tour[0][1])
     for edge in euler_tour[1:]:
-        if edge[1] not in hamiltonian_cycle_node_form:
-            hamiltonian_cycle_node_form.append(edge[1])
+        if edge[1] not in cycle_node_form:
+            cycle_node_form.append(edge[1])
     # The hamiltonian cycle should end with the same node it started with.
-    hamiltonian_cycle_node_form.append(euler_tour[0][0])
+    cycle_node_form.append(euler_tour[0][0])
 
     # Step 9: Combine the nodes back into tuples to represent the Hamiltonian cycle as a list of edges.
     #         Moreover, include the weight of each edge, and compute the sum of the edge weights of the cycle
-    hamiltonian_cycle_weighted_edge_form = []
-    total_edge_weight = 0
-    n = len(hamiltonian_cycle_node_form)
+    cycle_weighted_edge_form = []
+    cycle_weight = 0
+    n = len(cycle_node_form)
     for i in range(n - 1):
-        node_1 = hamiltonian_cycle_node_form[i]
-        node_2 = hamiltonian_cycle_node_form[i + 1]
+        node_1 = cycle_node_form[i]
+        node_2 = cycle_node_form[i + 1]
         weight = G.edges[node_1, node_2]['weight']
-        hamiltonian_cycle_weighted_edge_form.append((node_1, node_2, weight))
-        total_edge_weight += weight
+        cycle_weighted_edge_form.append((node_1, node_2, weight))
+        cycle_weight += weight
 
-    return total_edge_weight, hamiltonian_cycle_weighted_edge_form
+    return cycle_weight, cycle_weighted_edge_form
+
 
 def convert_graph_to_networkx_form(G):
     """
