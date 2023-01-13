@@ -55,31 +55,34 @@ unvisited_nodes = ['B', 'C', 'E']
 # if current_node == 'gas_station':
 #     # Don't include distance to its gas station
 
-### FROM start NODE WE SHOULD BEGIN BY GOING TO THE FURTHEST POSSIBLE GAS STATION. THEN ONLY APPLY THE GRAPH UPDATE FUNCTION FROM GAS STATIONS.
-max_distance = 32
-atsp_path = atsp(G, start)[1]
-print(atsp_path)
 
-# If there is not enough gas to make it even to the second node's gas station then go to the start node's gas station
-# if atsp_path[0][2] + nearest_gas_stations[atsp_path[0][1]][1] > max_distance:
-#     route_to_furthest_gas_station = [start, nearest_gas_stations[start][0]]
-# else:
-#     route_to_furthest_gas_station = [start]
+
+
+
+### FROM start NODE WE SHOULD BEGIN BY GOING TO THE FURTHEST POSSIBLE GAS STATION. THEN ONLY APPLY THE GRAPH UPDATE FUNCTION FROM GAS STATIONS.
+max_distance = 123
+atsp_path = atsp(G, start)[1]
 
 route_to_furthest_gas_station = [start]
-distance_to_furthest_gas_station = 0
+distance_along_atsp_path = 0
 for edge in atsp_path:
     edge_length = edge[2]
     next_node = edge[1]
-    if distance_to_furthest_gas_station + edge_length + nearest_gas_stations[next_node][1] < max_distance:
+    # If there is enough gas to make it to the gas station of the next atsp node, then travel to the next atsp node.
+    if distance_along_atsp_path + edge_length + nearest_gas_stations[next_node][1] <= max_distance:
         route_to_furthest_gas_station.append(next_node)
-        distance_to_furthest_gas_station += edge_length + nearest_gas_stations[next_node][1]
+        distance_along_atsp_path += edge_length
     else:
         break
+# Append the nearest gas station of the last atsp node that was reached.
+ngs = route_to_furthest_gas_station[-1]
+route_to_furthest_gas_station.append(nearest_gas_stations[ngs][0])
 
 
+print(atsp_path)
 print(route_to_furthest_gas_station)
-print(distance_to_furthest_gas_station)
+print(distance_along_atsp_path)
+pprint.pprint(nearest_gas_stations)
 
 
 
