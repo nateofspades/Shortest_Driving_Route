@@ -65,30 +65,39 @@ for edge in atsp_path:
         unvisited_nodes.remove(next_node)
     else:
         break
-# Append the nearest gas station of the last atsp node that was reached.
-ngs = route_to_furthest_gas_station[-1]
-route_to_furthest_gas_station.append(nearest_gas_stations[ngs][0])
+
 
 print(atsp_path)
-pprint.pprint(nearest_gas_stations)
+# pprint.pprint(nearest_gas_stations)
 print(route_to_furthest_gas_station)
 print(unvisited_nodes)
-
-
-updated_G = update_graph_at_gas_station(G, unvisited_nodes)
-print('updated_G:')
-pprint.pprint(updated_G)
 
 # If there are no unvisited nodes, then there is no need to stop for gas and update the route, so the output is determined by the first function call of atsp()
 if unvisited_nodes  == []:
     route = atsp_path
     print(route)                    # This should be a return statement in the final function
 
-# If the above if-statement did not return the function call then there is at least one unvisited node and we continue.
+# If the above if-statement did not return the function call then there is at least one unvisited node and so we continue.
+updated_G = update_graph_at_gas_station(G, unvisited_nodes)
+print('updated_G:')
+pprint.pprint(updated_G)
 
+updated_atsp_path = atsp(updated_G, 'gas_station')[1]
+print('updated_atsp_path:', updated_atsp_path)
+
+
+# Append the nearest gas station of the last atsp node that was reached.
+ngs = route_to_furthest_gas_station[-1]
+route_to_furthest_gas_station.append(nearest_gas_stations[ngs][0])
+
+print(ngs)
+print(route_to_furthest_gas_station)
+
+
+# while unvisited_nodes != []:
 
 #
-# def compute_longest_acceptable_path_from_gas_to_gas(G, atsp_path, unvisited_nodes):
+# def compute_longest_acceptable_path_from_gas_to_gas(updated_G, atsp_path, unvisited_nodes):
 #
 #
 #
