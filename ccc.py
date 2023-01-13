@@ -86,15 +86,26 @@ updated_atsp_path = atsp(updated_G, 'gas_station')[1]
 print('updated_atsp_path:', updated_atsp_path)
 
 
-# Append the nearest gas station of the last atsp node that was reached.
-ngs = route_to_furthest_gas_station[-1]
-route_to_furthest_gas_station.append(nearest_gas_stations[ngs][0])
-
-print(ngs)
-print(route_to_furthest_gas_station)
 
 
-# while unvisited_nodes != []:
+
+while unvisited_nodes != []:
+    # We are already at a gas station. Go directly from the gas station to the nearest atsp node.
+    route_to_furthest_gas_station = [updated_atsp_path[0][0], atsp_path[0][1]]
+    distance_along_atsp_path = atsp_path[0][2]
+    for edge in atsp_path[1:]:
+        edge_length = edge[2]
+        next_node = edge[1]
+        # If there is enough gas to make it to the gas station of the next atsp node, then travel to the next atsp node.
+        if distance_along_atsp_path + edge_length + nearest_gas_stations[next_node][1] <= max_distance:
+            route_to_furthest_gas_station.append(next_node)
+            distance_along_atsp_path += edge_length
+        else:
+            break
+    # Append the nearest gas station of the last atsp node that was reached.
+    ngs = route_to_furthest_gas_station[-1]
+    route_to_furthest_gas_station.append(nearest_gas_stations[ngs][0])
+
 
 #
 # def compute_longest_acceptable_path_from_gas_to_gas(updated_G, atsp_path, unvisited_nodes):
