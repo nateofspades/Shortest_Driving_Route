@@ -5,7 +5,7 @@ from ATSP import atsp
 
 G = {
     'A': {'A': 0, 'B': 120, 'C': 30, 'D': 60, 'E': 80},
-    'B': {'A': 120, 'B': 0, 'C': 4, 'D': 4, 'E': 50},
+    'B': {'A': 120, 'B': 0, 'C': 40, 'D': 40, 'E': 50},
     'C': {'A': 30, 'B': 40, 'C': 0, 'D': 90, 'E': 10},
     'D': {'A': 60, 'B': 40, 'C': 90, 'D': 0, 'E': 40},
     'E': {'A': 80, 'B': 50, 'C': 10, 'D': 40, 'E': 0}
@@ -49,19 +49,52 @@ unvisited_nodes = ['B', 'C', 'E']
 # def find_longest_route_before_filling_gas(G, start):
 
 
-max_distance = 400
-atsp[1] = atsp(G, start)
 
-subroute_length = 0
-
-if current_node == start:
-    # Include distance to its gas station
-    for edge in atsp:
-        if subroute_length +=
 
 
 # if current_node == 'gas_station':
 #     # Don't include distance to its gas station
 
-### FROM start NODE WE SHOULD START BY GOING TO THE FURTHEST POSSIBLE GAS STATION. THEN ONLY APPLY THE GRAPH UPDATE FUNCTION FROM GAS STATIONS.
+### FROM start NODE WE SHOULD BEGIN BY GOING TO THE FURTHEST POSSIBLE GAS STATION. THEN ONLY APPLY THE GRAPH UPDATE FUNCTION FROM GAS STATIONS.
+max_distance = 32
+atsp_path = atsp(G, start)[1]
+print(atsp_path)
+
+# If there is not enough gas to make it even to the second node's gas station then go to the start node's gas station
+# if atsp_path[0][2] + nearest_gas_stations[atsp_path[0][1]][1] > max_distance:
+#     route_to_furthest_gas_station = [start, nearest_gas_stations[start][0]]
+# else:
+#     route_to_furthest_gas_station = [start]
+
+route_to_furthest_gas_station = [start]
+distance_to_furthest_gas_station = 0
+for edge in atsp_path:
+    edge_length = edge[2]
+    next_node = edge[1]
+    if distance_to_furthest_gas_station + edge_length + nearest_gas_stations[next_node][1] < max_distance:
+        route_to_furthest_gas_station.append(next_node)
+        distance_to_furthest_gas_station += edge_length + nearest_gas_stations[next_node][1]
+    else:
+        break
+
+
+print(route_to_furthest_gas_station)
+print(distance_to_furthest_gas_station)
+
+
+
+
+# print(route_to_furthest_gas_station)
+
+# for i in range(len(atsp_path)):
+#     next_node = atsp_path[i][1]
+#     next_edge_length = atsp_path[i][2]
+#
+#
+#
+#
+# for edge in atsp_path:
+#     next_node = edge[1]
+#     edge_length = edge[2]
+#     if route_length + edge_length + nearest_gas_stations[next_node[1]] > max_distance:
 
