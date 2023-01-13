@@ -66,8 +66,24 @@ if atsp_path[0][0] == start:
     ngs = route_to_furthest_gas_station[-1]
     route_to_furthest_gas_station.append(nearest_gas_stations[ngs][0])
 
-# If we are at a gas station then we don't need to calculate the distance from the current node to the nearest gas station
+# If we are at a gas station then we can travel directly to the next atsp node without considering traveling to a gas station first.
 else:
+
+    route_to_furthest_gas_station = [atsp[0][0]]
+    distance_along_atsp_path = 0
+    for edge in atsp_path:
+        edge_length = edge[2]
+        next_node = edge[1]
+        # If there is enough gas to make it to the gas station of the next atsp node, then travel to the next atsp node.
+        if distance_along_atsp_path + edge_length + nearest_gas_stations[next_node][1] <= max_distance:
+            route_to_furthest_gas_station.append(next_node)
+            distance_along_atsp_path += edge_length
+        else:
+            break
+    # Append the nearest gas station of the last atsp node that was reached.
+    ngs = route_to_furthest_gas_station[-1]
+    route_to_furthest_gas_station.append(nearest_gas_stations[ngs][0])
+
 
 
 
