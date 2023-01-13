@@ -1,4 +1,5 @@
 import pprint
+from ATSP import atsp
 
 # COMPUTE INITIAL G AND NEAREST GAS STATIONS FROM INITIAL INPUT ['A','B','C','D','E']
 
@@ -9,6 +10,7 @@ G = {
     'D': {'A': 60, 'B': 40, 'C': 90, 'D': 0, 'E': 40},
     'E': {'A': 80, 'B': 50, 'C': 10, 'D': 40, 'E': 0}
 }
+start = 'A'
 
 nearest_gas_stations = {
     'A': ['gas_station_A', 2],
@@ -45,4 +47,21 @@ unvisited_nodes = ['B', 'C', 'E']
 
 
 # def find_longest_route_before_filling_gas(G, start):
+
+
+max_distance = 400
+atsp[1] = atsp(G, start)
+
+subroute_length = 0
+
+if current_node == start:
+    # Include distance to its gas station
+    for edge in atsp:
+        if subroute_length +=
+
+
+# if current_node == 'gas_station':
+#     # Don't include distance to its gas station
+
+### FROM start NODE WE SHOULD START BY GOING TO THE FURTHEST POSSIBLE GAS STATION. THEN ONLY APPLY THE GRAPH UPDATE FUNCTION FROM GAS STATIONS.
 
