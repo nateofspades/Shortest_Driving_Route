@@ -102,8 +102,8 @@ if unvisited_nodes == []:
 distance_along_atsp_subroute = updated_atsp_path[0][2]
 print('daas: ', distance_along_atsp_subroute)
 
-current_node = route[-1][1]
-if distance_along_atsp_subroute + updated_atsp_path[1][2]:
+# current_node = route[-1][1]
+# if distance_along_atsp_subroute + nearest_gas_stations[updated_atsp_path[1][0]][1]:
 
 
 
