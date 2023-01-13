@@ -23,7 +23,7 @@ nearest_gas_stations = {
 # INPUT TO THE GRAPH UPDATE FUNCTION
 unvisited_nodes = ['B', 'C', 'E']
 
-# def update_G_at_gas_station(unvisited_nodes):
+# def update_G_at_gas_station(unvisited_nodes, G):
 #     """
 #     Returns a new graph with start='gas_station' which can be input into atsp().
 #     """
@@ -41,13 +41,18 @@ unvisited_nodes = ['B', 'C', 'E']
 #
 #     return updated_G
 #
-# pprint.pprint(update_G_at_gas_station(unvisited_nodes))
+# pprint.pprint(update_G_at_gas_station(unvisited_nodes, G))
 
 
 ### FROM start NODE WE SHOULD BEGIN BY GOING TO THE FURTHEST POSSIBLE GAS STATION. THEN ONLY APPLY THE GRAPH UPDATE FUNCTION FROM GAS STATIONS.
 max_distance = 100
 #atsp_path = atsp(G, start)[1]
 atsp_path = [('gas_station_A', 'C', 6), ('C', 'E', 10), ('E', 'D', 40), ('D', 'B', 40)]
+
+
+
+def compute_longest_path_until_gas_station(G, atsp_path, )
+
 
 # atsp() is only called when at the start node or at a gas station.
 # If we are at the start node then we need to include the possibility that we need to first go to gas_station_a.
