@@ -44,21 +44,6 @@ unvisited_nodes = ['B', 'C', 'E']
 # pprint.pprint(update_G_at_gas_station(unvisited_nodes))
 
 
-
-
-# def find_longest_route_before_filling_gas(G, start):
-
-
-
-
-
-# if current_node == 'gas_station':
-#     # Don't include distance to its gas station
-
-
-
-
-
 ### FROM start NODE WE SHOULD BEGIN BY GOING TO THE FURTHEST POSSIBLE GAS STATION. THEN ONLY APPLY THE GRAPH UPDATE FUNCTION FROM GAS STATIONS.
 max_distance = 123
 atsp_path = atsp(G, start)[1]
@@ -80,9 +65,9 @@ route_to_furthest_gas_station.append(nearest_gas_stations[ngs][0])
 
 
 print(atsp_path)
+pprint.pprint(nearest_gas_stations)
 print(route_to_furthest_gas_station)
 print(distance_along_atsp_path)
-pprint.pprint(nearest_gas_stations)
 
 
 
