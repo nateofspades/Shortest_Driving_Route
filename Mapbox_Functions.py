@@ -1,21 +1,22 @@
-import json
 import requests
 import mapbox
-import mapboxgl
 import polyline
-import geopy
 import folium
-import math
 import numpy as np
-import pprint
 from math import sin, cos, sqrt, atan2, pi
 from ATSP import atsp
 from TSP import tsp
 
+
 def distance_between_nodes(node_1, node_2, access_token):
     """
-    This function will be used in the creation of G using the create_G function I made in Pycharm on Jan. 14)
+    Calculates the distance between node_1 and node_2 in meters using the Mapbox Directions API.
+    :param node_1: A location on a map, represented by its coordinates as (latitude, longitude).
+    :param node_2: A location on a map, represented by its coordinates as (latitude, longitude).
+    :param access_token: A Mapbox API access token.
+    :return: The distance between node_1 and node_2 in meters according to the Mapbox Directions API.
     """
+
     # Convert the nodes to strings that can be inserted into response.
     node_1 = f"{node_1[1]}, {node_1[0]}"
     node_2 = f"{node_2[1]}, {node_2[0]}"
@@ -31,40 +32,59 @@ def distance_between_nodes(node_1, node_2, access_token):
 
     return distance
 
-def haversine(coord1, coord2):
-    pi = math.pi
-    R = 6371000  # Earth radius in m
-    lat1, lon1 = coord1
-    lat2, lon2 = coord2
+def haversine(node_1, node_2):
+    """
+    Calculates the distance between two points on the Earth's surface, while ignoring obstacles such as buildings. This
+    will be used to calculate the distance between consecutive waypoints in the full route both to save API calls and
+    also because Mapbox often does not return a distance value between consecutive waypoints.
+    :param node_1: A location on a map, represented by its coordinates as (latitude, longitude).
+    :param node_2: A location on a map, represented by its coordinates as (latitude, longitude).
+    :return: The shortest distance along the Earth's surface between node_1 and node_2.
+    """
+    R = 6371000  # Earth's radius in meters.
+    lat_1, lon_1 = node_1
+    lat_2, lon_2 = node_2
 
-    phi1, phi2 = lat1 * pi / 180, lat2 * pi / 180
-    dphi       = phi2 - phi1
-    dlambda    = (lon2-lon1) * pi / 180
+    # The latitudes of node_1 and node_2 in radians.
+    phi_1, phi_2 = lat_1 * pi / 180, lat_2 * pi / 180
 
-    a = sin(dphi/2)**2 + cos(phi1) * cos(phi2) * sin(dlambda/2)**2
-    return R * 2 * atan2(sqrt(a), sqrt(1 - a))
+    # The difference of the latitudes in radians.
+    delta_phi = phi_2 - phi_1
+
+    # The difference of the longitudes in radians.
+    delta_lambda = (lon_2 - lon_1) * pi / 180
+
+    # An intermediate value in the calculation.
+    a = sin(delta_phi/2)**2 + cos(phi_1) * cos(phi_2) * sin(delta_lambda/2)**2
+
+    return 2 * R * atan2(sqrt(a),sqrt(1-a))
+
 
 def create_G(node_list, access_token):
     """
-    Nodes is a list, where each element corresponds to one node.
+    Creates the graph G from the list of locations (nodes) the truck much visit.
+    :param node_list: A list corresponding to all of the nodes that will be visited in the route. It is of the form
+        [(latitude_1, longitude_1), (latitude_2, longitude_2), ...]. Note that the nodes do not need to be ordered
+        according to the order that they will be visited in the route; the generate_route() function computes the ordering.
+    :param access_token: A Mapbox API access token.
+    :return: A graph G that can be input into the atsp() and tsp() functions.
     """
 
+    # Count the number of nodes and initialize G.
     n = len(node_list)
     G = {}
 
-    # Generate the diagonal of 0's.
+    # Generate the diagonal of 0's in G; each node has a distance of 0 to itself.
     for i in range(n):
         node_i = node_list[i]
         G[node_i] = {node_i: 0}
 
     # Generate the entries of G above the diagonal using API.
-    for i in range(n-1):
+    for i in range(n):
         node_i = node_list[i]
-        node_i_edges = {}
-        for j in range(i, n):
+        for j in range(i + 1, n):
             node_j = node_list[j]
-            node_i_edges[node_j] = distance_between_nodes(node_i, node_j, access_token) #distances_temp[node_i][node_j]   # the distance between node_i and node_j; replace this with api call
-        G[node_i] = node_i_edges
+            G[node_i][node_j] = distance_between_nodes(node_i, node_j, access_token)
 
     # Generate the entries of G below the diagonal by symmetry with the entries above the diagonal.
     for i in range(1, n):
@@ -78,7 +98,14 @@ def create_G(node_list, access_token):
 
 def generate_route(G, start, is_asymmetric=True):
     """
-    The function which generates the full route.
+    The function which generates the full route. The selected route depends on whether or not the truck needs to end
+    at the same location that it started.
+    :param G: A graph for which we want to compute a Hamiltonian cycle or path.
+    :param start: The starting node (location) of the truck's journey.
+    :param is_asymmetric: If set to true then the truck will not return to its starting node (location) once all of the
+        nodes (locations) have been visited. If set to False the truck will return to its starting node (location) once
+        all of the nodes (locations) have been visited, so the last node and start node will be equal.
+    :return: A Hamiltonian cycle or path of G.
     """
     if is_asymmetric:
         return atsp(G, start)
@@ -138,6 +165,19 @@ def waypoint_list_full_route(full_route, access_token):
     return waypoint_list_full
 
 
+# def cumulative_distance_along_waypoints(waypoint_list_full_route, access_token):
+#     n = len(waypoint_list_full_route)
+#     cumulative_distance = 0
+#     cumulative_distance_list = [0]
+#
+#     for i in range(1, n):
+#         # To save API calls perhaps replace distance_between_nodes with haversine.
+#         cumulative_distance += distance_between_nodes(waypoint_list_full_route[i - 1], waypoint_list_full_route[i], access_token)
+#         cumulative_distance_list.append(cumulative_distance)
+#
+#     return cumulative_distance_list
+
+
 def cumulative_distance_along_waypoints(waypoint_list_full_route, access_token):
     n = len(waypoint_list_full_route)
     cumulative_distance = 0
@@ -145,39 +185,11 @@ def cumulative_distance_along_waypoints(waypoint_list_full_route, access_token):
 
     for i in range(1, n):
         # To save API calls perhaps replace distance_between_nodes with haversine.
-        cumulative_distance += distance_between_nodes(waypoint_list_full_route[i - 1], waypoint_list_full_route[i], access_token)
+        cumulative_distance += haversine(waypoint_list_full_route[i - 1], waypoint_list_full_route[i])
         cumulative_distance_list.append(cumulative_distance)
 
     return cumulative_distance_list
 
-
-# def predict_waypoints_where_to_search_for_gas(cumulative_distance_along_waypoints, waypoint_list_full_route, start_tank_kms, full_tank_kms, min_tank_tolerance_kms=20):
-#     """
-#     This function assumes that each time the truck stops at a gas station it fills its tank completely.
-#     Moreover, it assumes that the truck had to go off the main route to reach the gas station, and that as a consequence it
-#     spends 5km leaving the main route and 5km returning to the main route before continuing its journey to the next node.
-#     """
-#     A = np.array(cumulative_distance_along_waypoints)
-#     n = len(A)
-#
-#     # Convert from kilometers to meters for consistency with Mapbox, which returns distances in meters.
-#     max_distance_before_searching_gas = 1000*(full_tank_kms - min_tank_tolerance_kms - 2*5)
-#
-#     index = 0
-#     index_list = []
-#     for i in range(index, n):
-#         if A[i] < max_distance_before_searching_gas:
-#             continue
-#         else:
-#             index = i - 1
-#             index_list.append(index)
-#             A -= A[i - 1]
-#             # print(cdaw, index_list, '\n')
-#             continue
-#
-#     waypoints = list(np.array(waypoint_list_full_route)[index_list])
-#
-#     return waypoints
 
 
 def predict_waypoints_where_to_search_for_gas(cumulative_distance_along_waypoints, waypoint_list_full_route, start_tank_kms, full_tank_kms, min_tank_tolerance_kms=20):
@@ -221,68 +233,6 @@ def predict_waypoints_where_to_search_for_gas(cumulative_distance_along_waypoint
     return waypoints
 
 
-# def generate_map(access_token, node_list, start, start_tank_kms, full_tank_kms, min_tank_tolerance_kms = 20, is_asymmetric=True):
-#     """
-#     Putting it all together.
-#     """
-#     G = create_G(node_list, access_token)
-#     full_route = generate_route(G, start, is_asymmetric)
-#     ordered_nodes = ordered_node_list(full_route)
-#     waypoint_list_full = waypoint_list_full_route(full_route, access_token)
-#     cumulative_distance = cumulative_distance_along_waypoints(waypoint_list_full, access_token)
-#     waypoints_where_to_search_for_gas = predict_waypoints_where_to_search_for_gas(cumulative_distance, waypoint_list_full, start_tank_kms, full_tank_kms, min_tank_tolerance_kms)
-#
-#     # Extract the first point of the route
-#     first_point = waypoint_list_full[0]
-#
-#     # Create a new map
-#     m = folium.Map(location=[first_point[1], first_point[0]], zoom_start=13)
-#
-#     # Add the route to the map
-#     folium.PolyLine(waypoint_list_full, color="red", weight=2.5, opacity=1).add_to(m)
-#
-#     folium.Marker(
-#         location=[ordered_nodes[0][0], ordered_nodes[0][1]],
-#         popup=folium.Popup(f'Node 1 {ordered_nodes[0][0], ordered_nodes[0][1]}: starting point of route', max_width=300),
-#         icon=folium.Icon(color='red', icon='marker')
-#     ).add_to(m)
-#
-#     for i in range(1, len(ordered_nodes) - 1):
-#         folium.Marker(
-#             location=[ordered_nodes[i][0], ordered_nodes[i][1]],
-#             popup=folium.Popup(f'Node {i + 1} {ordered_nodes[i][0], ordered_nodes[i][1]}', max_width=300),
-#             icon=folium.Icon(color='red', icon='marker')
-#         ).add_to(m)
-#
-#     if is_assymetric:
-#         folium.Marker(
-#             location=[ordered_nodes[len(ordered_nodes) - 1][0], ordered_nodes[len(ordered_nodes) - 1][1]],
-#             popup=folium.Popup(
-#                 f'Node {len(ordered_nodes)} {ordered_nodes[len(ordered_nodes) - 1][0], ordered_nodes[len(ordered_nodes) - 1][1]}: last delivery point and end of route',
-#                 max_width=300),
-#             icon=folium.Icon(color='red', icon='marker')
-#         ).add_to(m)
-#
-#     else:
-#         folium.Marker(
-#             location=[ordered_nodes[0][0], ordered_nodes[0][1]],
-#             popup=folium.Popup(
-#                 f'First and last node {[ordered_nodes[0][0], ordered_nodes[0][1]]}: last delivery point and end of route',
-#                 max_width=300),
-#             icon=folium.Icon(color='red', icon='marker')
-#         ).add_to(m)
-#
-#     for waypoint in waypoints_where_to_search_for_gas:
-#         folium.Marker(
-#             location=[waypoint[0], waypoint[1]],
-#             popup=folium.Popup('Look for gas station', max_width=300),
-#             icon=folium.Icon(color='red', icon='info-sign')
-#         ).add_to(m)
-#
-#     # Display the map
-#     return m
-
-
 def generate_map(access_token, node_list, start, start_tank_kms, full_tank_kms, min_tank_tolerance_kms=20, is_asymmetric=True):
     """
     Putting it all together.
@@ -306,7 +256,7 @@ def generate_map(access_token, node_list, start, start_tank_kms, full_tank_kms, 
     for i in range(1, len(ordered_nodes) - 1):
         folium.Marker(
             location=[ordered_nodes[i][0], ordered_nodes[i][1]],
-            popup=folium.Popup(f'Node {i + 1} {ordered_nodes[i][0], ordered_nodes[i][1]}: delivery point', max_width=300),
+            popup=folium.Popup(f'Node {i + 1} {ordered_nodes[i][0], ordered_nodes[i][1]}: delivery point', max_width=600),
             icon=folium.Icon(color='blue', icon='marker')
         ).add_to(m)
 
@@ -314,27 +264,27 @@ def generate_map(access_token, node_list, start, start_tank_kms, full_tank_kms, 
 
         folium.Marker(
             location=[ordered_nodes[0][0], ordered_nodes[0][1]],
-            popup=folium.Popup(f'Node 1 {ordered_nodes[0][0], ordered_nodes[0][1]}: start of route', max_width=300),
+            popup=folium.Popup(f'Node 1 {ordered_nodes[0][0], ordered_nodes[0][1]}: start of route', max_width=600),
             icon=folium.Icon(color='blue', icon='marker')
         ).add_to(m)
 
         folium.Marker(
             location=[ordered_nodes[len(ordered_nodes) - 1][0], ordered_nodes[len(ordered_nodes) - 1][1]],
-            popup=folium.Popup(f'Node {len(ordered_nodes)} {ordered_nodes[len(ordered_nodes) - 1][0], ordered_nodes[len(ordered_nodes) - 1][1]}: last delivery point and end of route', max_width=300),
+            popup=folium.Popup(f'Node {len(ordered_nodes)} {ordered_nodes[len(ordered_nodes) - 1][0], ordered_nodes[len(ordered_nodes) - 1][1]}: last delivery point and end of route', max_width=600),
             icon=folium.Icon(color='blue', icon='marker')
         ).add_to(m)
 
     if not is_asymmetric:
         folium.Marker(
             location=[ordered_nodes[0][0], ordered_nodes[0][1]],
-            popup=folium.Popup(f'First and last node {ordered_nodes[0][0], ordered_nodes[0][1]}: start and end of route', max_width=300),
+            popup=folium.Popup(f'First and last node {ordered_nodes[0][0], ordered_nodes[0][1]}: start and end of route', max_width=600),
             icon=folium.Icon(color='blue', icon='marker')
         ).add_to(m)
 
     for waypoint in waypoints_where_to_search_for_gas:
         folium.Marker(
             location=[waypoint[0], waypoint[1]],
-            popup=folium.Popup('Look for gas station!', max_width=300),
+            popup=folium.Popup('Look for gas station!', max_width=600),
             icon=folium.Icon(color='red', icon='marker')
         ).add_to(m)
 
