@@ -4,15 +4,22 @@ import polyline
 import folium
 import numpy as np
 from math import sin, cos, sqrt, atan2, pi
+
+import sys
+sys.path.append('../ATSP_Functions')
 from ATSP import atsp
+
+import sys
+sys.path.append('../TSP_Functions')
 from TSP import tsp
+
 
 def distance_between_nodes(node_1, node_2, access_token):
     """
     Calculates the distance between node_1 and node_2 in meters using the Mapbox Directions API.
     :param node_1: A location on a map, represented by its coordinates as (latitude, longitude).
     :param node_2: A location on a map, represented by its coordinates as (latitude, longitude).
-    :param access_token: A Mapbox API access token.
+    :param access_token: A Mapbox Directions API access token.
     :return: The distance between node_1 and node_2 in meters according to the Mapbox Directions API.
     """
 
@@ -65,7 +72,7 @@ def create_G(node_list, access_token):
     :param node_list: A list corresponding to all of the nodes that will be visited in the route. It is of the form
         [(latitude_1, longitude_1), (latitude_2, longitude_2), ...]. Note that the nodes do not need to be ordered
         according to the order that they will be visited in the route; the generate_route() function computes the ordering.
-    :param access_token: A Mapbox API access token.
+    :param access_token: A Mapbox Directions API access token.
     :return: A graph G that can be input into the atsp() and tsp() functions.
     """
 
@@ -135,7 +142,7 @@ def waypoint_list_between_node_pair(node_1, node_2, access_token):
     Calculates a list of waypoints (i.e. intermediate points) between locations node_1 and node_2.
     :param node_1: A location on a map, represented by its coordinates as (latitude, longitude).
     :param node_2: A location on a map, represented by its coordinates as (latitude, longitude).
-    :param access_token: A Mapbox API access token.
+    :param access_token: A Mapbox Directions API access token.
     :return: A list of waypoints along the subroute from node_1 to node_2. It is of the form
         [(latitude_1, longitude_1), (latitude_2, longitude_2), ...].
     """
@@ -158,7 +165,7 @@ def waypoint_list_full_route(full_route, access_token):
     """
     Calculates a list of waypoints (i.e. intermediate points) along the Hamiltonian cycle or path.
     :param full_route: The output of generate_route(G, start, is_asymmetric).
-    :param access_token: A Mapbox API access token.
+    :param access_token: A Mapbox Directions API access token.
     :return: A list of waypoints along the full Hamiltonian cycle or path. It is of the form
         [(latitude_1, longitude_1), (latitude_2, longitude_2), ...].
     """
@@ -269,7 +276,7 @@ def predict_waypoints_where_to_search_for_gas(cumulative_distance_along_waypoint
 def generate_map(access_token, node_list, start, start_tank_kms, full_tank_kms, min_tank_tolerance_kms=20, is_asymmetric=True):
     """
     This function generates an interactive map of the Hamiltonian cycle or path.
-    :param access_token: A Mapbox API access token.
+    :param access_token: A Mapbox Directions API access token.
     :param node_list: A list corresponding to all of the nodes that will be visited in the route. It is of the form
         [(latitude_1, longitude_1), (latitude_2, longitude_2), ...]. Note that the nodes do not need to be ordered
         according to the order that they will be visited in the route; the generate_route() function computes the ordering.

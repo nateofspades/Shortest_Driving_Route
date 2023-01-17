@@ -1,3 +1,6 @@
+import sys
+sys.path.append('../TSP_Functions')
+from TSP_Brute_Force import tsp_brute_force
 from itertools import permutations
 import time
 
