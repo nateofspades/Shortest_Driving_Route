@@ -1,24 +1,12 @@
-# This file creates a function that implements Christofide's algorithm for any weighted complete graph that satisfies the triangle inequality.
-# The steps in the function definition follow the steps in the Example in this Wikipedia page: https://en.wikipedia.org/wiki/Christofides_algorithm
-
 import networkx as nx
-
 
 def tsp_christofides(G, start):
     """
-    This function implements Christofide's algorithm to generate a Hamiltonian cycle for a weighted complete graph satisfying the triangle inequality.
-    It also includes the edge weights in the Hamiltonian cycle, as well as the sum of the edge weights.
-
-    :param G: A dictionary in which the keys are the nodes of a weighted graph, and the value for a node N is a dictionary of all nodes as keys and
-              their edge weights with N as values.
-
-    :param start: the first (and last) node in the Hamiltonian cycle; represented as a string.
-
-    :return: a weighted Hamiltonian cycle in G that begins and ends at the start input, as well as the sum of the edge weights; represented as a length-2
-        tuple, where the first element is the sum of the edge weights, and the second element is the weighted Hamiltonian cycle, represented as a list of
-        length-3 tuples, where the first two elements of a tuple are the two nodes of an edge in the cycle and the third element is the corresponding
-        edge weight.
-    """
+     Computes a Hamiltonian cycle using Christofide's algorithm.
+     :param G: A graph which is complete, weighted and undirected.
+     :param start: The first (and last) node of the Hamiltonian cycle output.
+     :return: A Hamiltonian cycle of G produced by Christofide's algorithm, including edge weights and total weight.
+     """
 
     # Step 1: Convert G to the appropriate format so that it can be used by the networkx library.
     G = convert_graph_to_networkx_form(G)
@@ -38,7 +26,7 @@ def tsp_christofides(G, start):
 
     # Step 5: Construct a minimum-weight perfect matching M in this subgraph S.
     M = nx.min_weight_matching(S)
-    M = nx.Graph(M)  # Convert from a set object to a graph object
+    M = nx.Graph(M)  # Convert from a set object to a graph object.
 
     # Step 6: Unite matching and spanning tree T ∪ M to form an Eulerian multigraph H; duplicate edges allowed.
     H = nx.MultiGraph(list(T.edges) + list(M.edges))
@@ -57,7 +45,7 @@ def tsp_christofides(G, start):
     cycle_node_form.append(euler_tour[0][0])
 
     # Step 9: Combine the nodes back into tuples to represent the Hamiltonian cycle as a list of edges.
-    #         Moreover, include the weight of each edge, and compute the sum of the edge weights of the cycle
+    #         Moreover, include the weight of each edge, and compute the sum of the edge weights of the cycle.
     cycle_weighted_edge_form = []
     cycle_weight = 0
     n = len(cycle_node_form)
@@ -73,11 +61,9 @@ def tsp_christofides(G, start):
 
 def convert_graph_to_networkx_form(G):
     """
-    This is a helper function for tsp_christofides(). It converts the input graph G into a format that allows it to be input into various networkx functions.
-
+    A helper function for tsp_christofides(). It converts the input graph G into a format that allows it to be input into various networkx functions.
     :param G: A dictionary in which the keys are the nodes of a weighted graph,
               and the value for a node N is a dictionary of all nodes as keys and their edge weights with N as values.
-
     :return: A networkx graph object.
     """
 
@@ -98,11 +84,6 @@ def convert_graph_to_networkx_form(G):
 
 
 def unit_tests():
-    """
-    A Hamiltonian cycle was computed by hand using Christofides algorithm for some graphs on 4 nodes and 5 nodes.
-    These by-hand computations are compared to the outputs of tsp_christofides(). Note that the algorithm is not
-    deterministic; it can output different cycles, so a failure of the unit tests does not imply a failure of code.
-    """
 
     # Unit test 1
     G = {

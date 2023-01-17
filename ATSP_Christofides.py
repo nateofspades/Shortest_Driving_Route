@@ -1,6 +1,13 @@
 from TSP_Christofides import tsp_christofides
 
 def atsp_christofides(G, start):
+    """
+     Computes a Hamiltonian path using Christofide's algorith, i.e. by using Christofides algorithm to generate a Hamiltonian
+     cycle, and then the last edge is removed.
+     :param G: A graph which is complete, weighted and undirected.
+     :param start: The first node of the Hamiltonian path output.
+     :return: A Hamiltonian path of G produced by Christofide's algorithm, including edge weights and total weight.
+     """
 
     # Use tsp_christofides() to extract a weighted Hamiltonian cycle and its total weight.
     cycle_and_weight = tsp_christofides(G, start)
@@ -16,8 +23,6 @@ def atsp_christofides(G, start):
 
 
 def unit_tests():
-    """
-    """
 
     # Unit test 1
     G = {

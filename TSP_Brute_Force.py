@@ -2,7 +2,14 @@ from itertools import permutations
 import time
 
 def tsp_brute_force(G, start):
-    # Get a list of all the nodes
+    """
+    Computes a minimum-weight Hamiltonian cycle using brute force, i.e. by calculating all possible Hamiltonian cycles of G and extracting one which has the minimum possible weight.
+    :param G: A graph which is complete, weighted and undirected.
+    :param start: The first (and last) node of the Hamiltonian cycle output.
+    :return: A Hamiltonian cycle of G of minimum weight which begins and ends at the start node, including edge weights and total weight.
+    """
+
+    # Get a list of all the nodes.
     nodes = list(G.keys())
 
     # Initialize variables to store the best cycle and its weight.
@@ -16,12 +23,12 @@ def tsp_brute_force(G, start):
         if perm < perm[::-1]:
             # Initiate cycle_weight with the weight of the first edge.
             cycle_weight = G[start][perm[0]]
-            # Finish the cycle_weight calculation.
+            # Continue the cycle_weight calculation.
             for i in range(len(perm) - 1):
                 cycle_weight += G[perm[i]][perm[i + 1]]
-            # Add the weight of the last node in the permutation with the start node
+            # Add the weight of the last node in the permutation with the start node.
             cycle_weight += G[perm[-1]][start]
-            # Update the best cycle and its length if necessary
+            # Update the best cycle and its length if necessary.
             if cycle_weight < best_cycle_weight:
                 best_cycle = [(start, perm[0], G[start][perm[0]])] + list(zip(perm, perm[1:] + (start,), [G[perm[i]][perm[i + 1]] for i in range(len(perm) - 1)] + [G[perm[-1]][start]]))
                 best_cycle_weight = cycle_weight
@@ -30,10 +37,6 @@ def tsp_brute_force(G, start):
 
 
 def unit_tests():
-    """
-    A minimum total edge weight Hamiltonian cycle was computed by hand for some graphs on 4 nodes and 5 nodes.
-    These by-hand computations are compared to the outputs of tsp_brute_force().
-    """
 
     # Unit test 1
     G = {

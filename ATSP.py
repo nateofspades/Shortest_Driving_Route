@@ -3,9 +3,24 @@ from ATSP_Greedy import atsp_greedy
 from ATSP_Christofides import atsp_christofides
 
 def atsp(G, start, max_brute_force_n = 11):
+    """
+    Computes a Hamiltonian path by considering multiple approaches: the brute force approach, the greedy approach and Christofides algorithm.
+    If G has just 2, the Hamiltonian path is hard-coded. If G has 3 to max_brute_force_n nodes then the Hamiltonian path is generated using
+    the brute force approach. If G has more than max_brute_force_n nodes then 2 Hamiltonian paths are computed, one using the greedy approach
+    and one using Christofides algorithm to generate a Hamiltonian cycle and remove the last edge, and the one with the shorter path weight
+    is selected.
+    :param G: A graph which is complete, weighted and undirected.
+    :param start: The first node of the Hamiltonian path output.
+    :param max_brute_force_n: The maximum number of nodes G can have where the brute force approach will be considered.
+        If too large, then brute force is slow, and therefore atsp() is slow.
+    :return: A Hamiltonian path of G, including edge weights and total weight.
+    """
 
+    # Generate the list of nodes, and count how many there are.
     nodes = list(G.keys())
     n = len(nodes)
+
+    # Remove the start node so that we can hard-code the cycles properly in the cases where n=2.
     nodes.remove(start)
 
     # If G has 2 nodes then there is just one possible path, which is hardcoded below.

@@ -1,6 +1,13 @@
 from TSP_Greedy import tsp_greedy
 
 def atsp_greedy(G, start):
+    """
+    Computes a Hamiltonian path using a greedy approach, i.e. where each node after the first is selected by considering
+    all yet-unvisited nodes in the graph and selecting one which has the minimum edge weight with the current node.
+    :param G: A graph which is complete, weighted and undirected.
+    :param start: The first node of the Hamiltonian path output.
+    :return: A Hamiltonian path of G produced by the greedy approach, including edge weights and total weight.
+    """
 
     # Use tsp_greedy() to extract a weighted Hamiltonian cycle and its total weight.
     cycle_and_weight = tsp_greedy(G, start)
@@ -13,6 +20,7 @@ def atsp_greedy(G, start):
     path_weight = cycle_weight - last_edge_weight
 
     return path_weight, path
+
 
 def unit_tests():
     """

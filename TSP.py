@@ -3,9 +3,23 @@ from TSP_Greedy import tsp_greedy
 from TSP_Christofides import tsp_christofides
 
 def tsp(G, start, max_brute_force_n = 11):
+    """
+    Computes a Hamiltonian cycle by considering multiple approaches: the brute force approach, the greedy approach and Christofides algorithm.
+    If G has just 2 or 3 nodes, the Hamiltonian cycle is hard-coded. If G has 4 to max_brute_force_n nodes then the Hamiltonian cycle is
+    generated using the brute force approach. If G has more than max_brute_force_n nodes then 2 Hamiltonian cycles are computed, one using
+    the greedy approach and one using Christofides algorithm, and the one with the shorter cycle weight is selected.
+    :param G: A graph which is complete, weighted and undirected.
+    :param start: The first (and last) node of the Hamiltonian cycle output.
+    :param max_brute_force_n: The maximum number of nodes G can have where the brute force approach will be considered.
+        If too large, then brute force is slow, and therefore tsp() is slow.
+    :return: A Hamiltonian cycle of G, including edge weights and total weight.
+    """
 
+    # Generate the list of nodes, and count how many there are.
     nodes = list(G.keys())
     n = len(nodes)
+
+    # Remove the start node so that we can hard-code the cycles properly in the cases where n=2 and n=3.
     nodes.remove(start)
 
     # If G has 2 nodes then there is just one possible Hamiltonian cycle, which is hardcoded below.
@@ -45,6 +59,7 @@ def tsp(G, start, max_brute_force_n = 11):
 
         if cycle_christofides_weight < cycle_greedy_weight:
             return cycle_christofides_with_weight
+
 
 def unit_tests():
 

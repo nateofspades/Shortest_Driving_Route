@@ -1,28 +1,40 @@
 def tsp_greedy(G, start):
+    """
+    Computes a Hamiltonian cycle using a greedy approach, i.e. where each node after the first is selected by considering
+    all yet-unvisited nodes in the graph and selecting one which has the minimum edge weight with the current node. Once
+    all nodes have been visited, the last node is then joined with the start node.
+    :param G: A graph which is complete, weighted and undirected.
+    :param start: The first (and last) node of the Hamiltonian cycle output.
+    :return: A Hamiltonian cycle of G produced by the greedy approach, including edge weights and total weight.
+    """
+
+    # We need to keep track of which nodes have already been visited and which node we are currently at.
     visited_nodes = []
     current_node = start
+
+    # The outputs of the function.
     cycle_weight = 0
     cycle = []
 
-    # Visit all nodes in the graph
+    # Visit all nodes in the graph.
     while len(visited_nodes) < len(G):
         visited_nodes.append(current_node)
         min_weight = float('inf')
         next_node = None
 
-        # Find the closest unvisited node
+        # Find the closest unvisited node.
         for node, weight in G[current_node].items():
             if node not in visited_nodes and weight < min_weight:
                 min_weight = weight
                 next_node = node
 
-        # Add the edge to the cycle and update the total weight if a next node was found
+        # Add the edge to the cycle and update the total weight if a next node was found.
         if next_node is not None:
             cycle.append((current_node, next_node, min_weight))
             cycle_weight += min_weight
             current_node = next_node
 
-    # Return to the start node
+    # Return to the start node.
     cycle.append((current_node, start, G[current_node][start]))
     cycle_weight += G[current_node][start]
 

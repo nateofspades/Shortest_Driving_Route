@@ -2,7 +2,14 @@ from itertools import permutations
 import time
 
 def atsp_brute_force(G, start):
-    # Get a list of all the nodes
+    """
+    Computes a minimum-weight Hamiltonian path using brute force, i.e. by calculating all possible Hamiltonian paths of G and extracting one which has the minimum possible weight.
+    :param G: A graph which is complete, weighted and undirected.
+    :param start: The first node of the Hamiltonian path output.
+    :return: A Hamiltonian path of G of minimum weight which begins at the start node, including edge weights and total weight.
+    """
+
+    # Get a list of all the nodes.
     nodes = list(G.keys())
 
     # Initialize variables to store the best cycle and its weight.
@@ -26,10 +33,6 @@ def atsp_brute_force(G, start):
 
 
 def unit_tests():
-    """
-    A minimum total edge weight Hamiltonian cycle was computed by hand for some graphs on 4 nodes and 5 nodes.
-    These by-hand computations are compared to the outputs of tsp_brute_force().
-    """
 
     # Unit test 1
     G = {
