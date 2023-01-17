@@ -79,10 +79,10 @@ def create_G(node_list, access_token):
         node_i = node_list[i]
         G[node_i] = {node_i: 0}
 
-    # Generate the entries of G above the diagonal using API.
+    # Generate the entries of G above the diagonal using the Mapbox API.
     for i in range(n):
         node_i = node_list[i]
-        for j in range(i + 1, n):
+        for j in range(i+1, n):
             node_j = node_list[j]
             G[node_i][node_j] = distance_between_nodes(node_i, node_j, access_token)
 
@@ -114,12 +114,15 @@ def generate_route(G, start, is_asymmetric=True):
 
 def ordered_node_list(route):
     """
-    route is the output of generate_route
+    This computes the order that the nodes (locations) will be traveled in the Hamiltonian cycle or path of G. This is
+    needed for generate_map() so that the nodes can be labeled correctly in the displayed interactive map.
+    :param route:
+    :return:
     """
     # We just want the route, not the total distance of the route.
     route_without_total_distance = route[1]
 
-    # Extract all but the last node in the route, in order.
+    # Extract all nodes but the last in the route, in order.
     ordered_nodes = [edge_list[0] for edge_list in route_without_total_distance]
 
     # Include the last node in the route.
@@ -130,8 +133,12 @@ def ordered_node_list(route):
 
 def waypoint_list_between_node_pair(node_1, node_2, access_token):
     """
-    Makes Mapbox API calls to determine the shortest route between node_1 and node_2, as well as the length of this route.
-    node_1 and node_2 are each a tuple of the form (longitude, latitude)
+    Calculates a list of waypoints (i.e. intermediate points) between locations node_1 and node_2.
+    :param node_1: A location on a map, represented by its coordinates as (latitude, longitude).
+    :param node_2: A location on a map, represented by its coordinates as (latitude, longitude).
+    :param access_token: A Mapbox API access token.
+    :return: A list of waypoints along the subroute from node_1 to node_2. It is of the form
+        [(latitude_1, longitude_1), (latitude_2, longitude_2), ...].
     """
 
     # Extract the coordinates of node_1 and node_2.
@@ -140,22 +147,29 @@ def waypoint_list_between_node_pair(node_1, node_2, access_token):
 
     # Extract the list of waypoints representing the shortest route from node_1 to node_2.
     # Each item in the list corresponds to 1 waypoint and is a tuple of the form (latitude, longitude).
-    response = requests.get(
-        "https://api.mapbox.com/directions/v5/mapbox/driving/" + node_1_string + ";" + node_2_string + ".json?access_token=" + access_token)
+    response = requests.get("https://api.mapbox.com/directions/v5/mapbox/driving/" + node_1_string + ";" + node_2_string + ".json?access_token=" + access_token)
     route = response.json()['routes'][0]
     encoded_polyline = route['geometry']
     waypoint_list = polyline.decode(encoded_polyline)
-
-    #     # Include the node_1 at the beginning of the list and node_2 at the end of the list.
-    #     waypoint_list.insert(0, node_1)
-    #     waypoint_list.append(node_2)
 
     return waypoint_list
 
 
 def waypoint_list_full_route(full_route, access_token):
+    """
+    Calculates a list of waypoints (i.e. intermediate points) along the Hamiltonian cycle or path.
+    :param full_route: The output of generate_route(G, start, is_asymmetric).
+    :param access_token: A Mapbox API access token.
+    :return: A list of waypoints along the full Hamiltonian cycle or path. It is of the form
+        [(latitude_1, longitude_1), (latitude_2, longitude_2), ...].
+    """
+
+    # Initialize the list in which the waypoints will be stored.
     waypoint_list_full = []
 
+    # full_route[1] gives the Hamiltonian cycle or path.
+    # full_route[1][i] gives edge i in the Hamiltonian cycle or path.
+    # full_route[1][i][0] and full_route[1][i][1] give the nodes of edge i in the Hamiltonian cycle or path.
     n = len(full_route[1])
     for i in range(n):
         node_i = full_route[1][i][0]
@@ -165,20 +179,19 @@ def waypoint_list_full_route(full_route, access_token):
     return waypoint_list_full
 
 
-# def cumulative_distance_along_waypoints(waypoint_list_full_route, access_token):
-#     n = len(waypoint_list_full_route)
-#     cumulative_distance = 0
-#     cumulative_distance_list = [0]
-#
-#     for i in range(1, n):
-#         # To save API calls perhaps replace distance_between_nodes with haversine.
-#         cumulative_distance += distance_between_nodes(waypoint_list_full_route[i - 1], waypoint_list_full_route[i], access_token)
-#         cumulative_distance_list.append(cumulative_distance)
-#
-#     return cumulative_distance_list
-
-
 def cumulative_distance_along_waypoints(waypoint_list_full_route, access_token):
+    """
+    A list with one entry for each waypoint in the full_route, where entry i is the cumulative distance (in meters) traveled
+    in the full route up to that waypoint. This is used to predict when to warn the truck driver that he or she will need
+    to fill up on gas.
+    :param waypoint_list_full_route: A list of waypoints along the full Hamiltonian cycle or path. It is of the form
+        [(latitude_1, longitude_1), (latitude_2, longitude_2), ...].
+    :param access_token:
+    :return:
+    """
+
+
+
     n = len(waypoint_list_full_route)
     cumulative_distance = 0
     cumulative_distance_list = [0]
@@ -202,8 +215,8 @@ def predict_waypoints_where_to_search_for_gas(cumulative_distance_along_waypoint
     n = len(A)
 
     # Convert from kilometers to meters for consistency with Mapbox, which returns distances in meters.
-    max_initial_distance_before_search_gas = 1000*(start_tank_kms - min_tank_tolerance_kms - 2*5)
-    max_distance_before_searching_gas_with_full_tank = 1000*(full_tank_kms - min_tank_tolerance_kms - 2*5)
+    max_initial_distance_before_search_gas = 1000 * (start_tank_kms - min_tank_tolerance_kms - 2*5)
+    max_distance_before_searching_gas_with_full_tank = 1000 * (full_tank_kms - min_tank_tolerance_kms - 2*5)
 
     index = 0
     index_list = []
