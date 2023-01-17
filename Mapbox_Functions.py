@@ -290,7 +290,7 @@ def generate_map(access_token, node_list, start, start_tank_kms, full_tank_kms, 
     full_route = generate_route(G, start, is_asymmetric)
     ordered_nodes = ordered_node_list(full_route)
     waypoint_list_full = waypoint_list_full_route(full_route, access_token)
-    cumulative_distance = cumulative_distance_along_waypoints(waypoint_list_full, access_token)
+    cumulative_distance = cumulative_distance_along_waypoints(waypoint_list_full)
     waypoints_where_to_search_for_gas = predict_waypoints_where_to_search_for_gas(cumulative_distance, waypoint_list_full, start_tank_kms, full_tank_kms, min_tank_tolerance_kms)
 
     # Extract the first point of the route
