@@ -33,7 +33,7 @@ def distance_between_nodes(node_1, node_2, access_token):
 
 def haversine(coord1, coord2):
     pi = math.pi
-    R = 6372000  # Earth radius in m
+    R = 6371000  # Earth radius in m
     lat1, lon1 = coord1
     lat2, lon2 = coord2
 
