@@ -2,7 +2,7 @@ import random
 
 def create_random_G(nodes, max_weight):
   """
-  This is a function made to generate random graph dictionaries for the purpose of testing the tsp functions.
+  This is a function made to generate random graph dictionaries for the purpose of testing the tsp and atsp functions.
 
   :param nodes (list): The list of nodes that the graph will use.
 
