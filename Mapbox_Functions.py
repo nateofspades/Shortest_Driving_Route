@@ -7,7 +7,6 @@ from math import sin, cos, sqrt, atan2, pi
 from ATSP import atsp
 from TSP import tsp
 
-
 def distance_between_nodes(node_1, node_2, access_token):
     """
     Calculates the distance between node_1 and node_2 in meters using the Mapbox Directions API.
@@ -179,12 +178,11 @@ def waypoint_list_full_route(full_route, access_token):
     return waypoint_list_full
 
 
-def cumulative_distance_along_waypoints(waypoint_list_full_route, access_token):
+def cumulative_distance_along_waypoints(waypoint_list_full_route):
     """
     This is used to predict when to warn the truck driver that he or she will need to fill up on gas.
     :param waypoint_list_full_route: A list of waypoints along the full Hamiltonian cycle or path. It is of the form
         [(latitude_1, longitude_1), (latitude_2, longitude_2), ...].
-    :param access_token:
     :return: A list with one entry for each waypoint in the full route, where entry i is the cumulative distance (in meters) traveled
     in the full route up to that waypoint.
     """
