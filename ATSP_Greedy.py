@@ -1,5 +1,3 @@
-import sys
-sys.path.append('../TSP_Functions')
 from TSP_Greedy import tsp_greedy
 
 def atsp_greedy(G, start):

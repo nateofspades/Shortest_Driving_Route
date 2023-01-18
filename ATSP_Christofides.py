@@ -1,5 +1,3 @@
-import sys
-sys.path.append('../TSP_Functions')
 from TSP_Christofides import tsp_christofides
 
 def atsp_christofides(G, start):

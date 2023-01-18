@@ -1,18 +1,14 @@
+import sys
+sys.path.append('../')
+from ATSP import atsp
+from TSP import tsp
+
 import requests
 import mapbox
 import polyline
 import folium
 import numpy as np
 from math import sin, cos, sqrt, atan2, pi
-
-import sys
-sys.path.append('../ATSP_Functions')
-from ATSP import atsp
-
-import sys
-sys.path.append('../TSP_Functions')
-from TSP import tsp
-
 
 def distance_between_nodes(node_1, node_2, access_token):
     """
