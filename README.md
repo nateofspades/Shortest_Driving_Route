@@ -63,7 +63,7 @@ There are 3 such scripts, each corresponding to a different way that a Hamiltoni
 
 Mapbox is a company that provides a platform for creating and using maps.
 
-[Mapbox_Functions.py](https://github.com/nateofspades/Shortest_Driving_Route/blob/master/Mapbox/Mapbox_Functions.py): The purpose of this script was to build the function **generate_map()** found at the bottom of the script. The generate_map() function generates an interactive map which displays the suggested route a trucker should take, as well as suggestions for when the driver should begin looking for gas stations, given the function following inputs:
+[Mapbox_Functions.py](https://github.com/nateofspades/Shortest_Driving_Route/blob/master/Mapbox/Mapbox_Functions.py): The purpose of this script was to build the function **generate_map()** found at the bottom of the script. This function makes use of TSP.py and ATSP.py, as well as other helper functions found in Mapbox_Functions.py. The generate_map() function generates an interactive map which displays the suggested route a trucker should take, as well as suggestions for when the driver should begin looking for gas stations, given the function following inputs:
 
 - access_token: A Mapbox Directions API access token.
 - node_list: A list corresponding to all of the nodes (i.e. locations) that will be visited in the route.
