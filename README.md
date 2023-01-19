@@ -13,7 +13,7 @@ Screenshots of two examples of the end result of this project can be seen at the
 
 - [Mapbox_Example_TSP_Screenshots](https://github.com/nateofspades/Shortest_Driving_Route/tree/master/Mapbox/Mapbox_Example_TSP_Screenshots). This consists of 4 screenshots of a trucker route that begins in Quebec City and makes a delivery in each of Montreal, Ottawa, Kingston and London before returning to Quebec City. Each of these locations are labeled in **blue**. The map also labels 3 suggested locations for when the driver should begin to look for a gas station in **red**. 
 
-- [Mapbox_Example_ATSP_Screenshots](https://github.com/nateofspades/Shortest_Driving_Route/tree/master/Mapbox/Mapbox_Example_ATSP_Screenshots): This is another set of 4 screenshots of a route that begins in Quebec City and makes a delivery in each of Montreal, Ottawa, Kingston and London. In this route the trucker does not return to the starting point, Quebec city, after visiting the last delivery point in London. Each of these locations are labeled in **blue** and the suggested locations for when the driver should begin to look for a gas station in **red**. 
+- [Mapbox_Example_ATSP_Screenshots](https://github.com/nateofspades/Shortest_Driving_Route/tree/master/Mapbox/Mapbox_Example_ATSP_Screenshots): This is another set of 4 screenshots of a route that begins in Quebec City and makes a delivery in each of Montreal, Ottawa, Kingston and London. In this route the trucker does not return to the starting point, Quebec city, after visiting the last delivery point in London. Each of these locations are labeled in **blue**, and suggested locations for when the driver should begin to look for a gas station are in **red**. 
 
 This project is a direct application of the **Traveling Salesman Problem** using the **Mapbox Directions API**. Here's what I did:
 
@@ -63,13 +63,13 @@ Mapbox is a company that provides a platform for creating and using maps.
 
 [Mapbox_Functions.py](https://github.com/nateofspades/Shortest_Driving_Route/blob/master/Mapbox/Mapbox_Functions.py): The purpose of this script was to build the function **generate_map()** found at the bottom of the script. The generate_map() function generates an interactive map which displays the suggested route a trucker should take, as well as suggestions for when the driver should begin looking for gas stations, given the function following inputs:
 
-access_token: A Mapbox Directions API access token.
-node_list: A list corresponding to all of the nodes (i.e. locations) that will be visited in the route.
-start: The starting node (i.e. starting location) of the truck's journey.
-start_tank_kms: How many kilometers worth of gas the truck driver has in the tank at the beginning of the route.
-full_tank_kms: The maximum distance (in kilometers) the truck can be driven when the gas tank is full.
-min_tank_tolerance_kms: The gas driver is planning their route such that they never have less than this many kilometers worth of gas in their tank. (Typically it is >0 because it would be risky always arriving at gas stations with just enough gas to make it there.)
-is_asymmetric: If set to False then the truck will use Step 2a to generate the Hamiltonian cycle route; the truck will return to its starting node (i.e. starting location) once all of the nodes (i.e. locations) have been visited. If set to True then the truck will use Step 2b to generate the Hamiltonian path route; the truck will not return to its starting node (i.e. starting location) once all of the nodes (i.e. locations) have been visited.
+- access_token: A Mapbox Directions API access token.
+- node_list: A list corresponding to all of the nodes (i.e. locations) that will be visited in the route.
+- start: The starting node (i.e. starting location) of the truck's journey.
+- start_tank_kms: How many kilometers worth of gas the truck driver has in the tank at the beginning of the route.
+- full_tank_kms: The maximum distance (in kilometers) the truck can be driven when the gas tank is full.
+- min_tank_tolerance_kms: The gas driver is planning their route such that they never have less than this many kilometers worth of gas in their tank. (Typically it is >0 because it would be risky always arriving at gas stations with just enough gas to make it there.)
+- is_asymmetric: If set to False then the truck will use Step 2a to generate the Hamiltonian cycle route; the truck will return to its starting node (i.e. starting location) once all of the nodes (i.e. locations) have been visited. If set to True then the truck will use Step 2b to generate the Hamiltonian path route; the truck will not return to its starting node (i.e. starting location) once all of the nodes (i.e. locations) have been visited.
 
 ## Step 4a - Example of Hamiltonian Cycle Trucker Route
 
