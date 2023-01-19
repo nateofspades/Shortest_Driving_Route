@@ -19,7 +19,7 @@ This project is a direct application of the **Traveling Salesman Problem** using
 
 ## Step 1a - Traveling Salesman Problem Using 3 Approaches
 
-Write Python scripts that compute a cycle of a weighted complete graph G which starts at a given node and passes through all of the nodes of G. A cycle of G which passes through all nodes of G is called a **Hamiltonian cycle**. Each node can be thought of as a location that the trucker must visit, and the edge weight between two nodes is the distance between the two nodes.
+Write Python scripts that compute a cycle of a weighted complete graph G which starts at a given node and passes through all of the nodes of G. A cycle of G which passes through all nodes of G is called a **Hamiltonian cycle**. Each node can be thought of as a location that the trucker must visit (including the starting location), and the edge weight between two nodes is the distance between the two nodes.
 
 There are 3 such scripts, each corresponding to a different way that a Hamiltonian cycle can be computed: 
 
