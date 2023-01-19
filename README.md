@@ -7,4 +7,4 @@ Suppose you are a truck-driver who needs to make deliveries in multiple location
 
 The focus of this project is to answer both of these questions. 
 
-Screenshots of two examples of the end result of this project can be seen in Mapbox_Example_ATSP_Screenshots(http: https://github.com/nateofspades/Shortest_Driving_Route/tree/master/Mapbox/Mapbox_Example_ATSP_Screenshots) and Mapbox_Example_TSP_Screenshots(https://github.com/nateofspades/Shortest_Driving_Route/tree/master/Mapbox/Mapbox_Example_TSP_Screenshots).
+Screenshots of two examples of the end result of this project can be seen in Mapbox_Example_ATSP_Screenshots(https://github.com/nateofspades/Shortest_Driving_Route/tree/master/Mapbox/Mapbox_Example_ATSP_Screenshots) and Mapbox_Example_TSP_Screenshots(https://github.com/nateofspades/Shortest_Driving_Route/tree/master/Mapbox/Mapbox_Example_TSP_Screenshots).
