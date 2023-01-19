@@ -1,5 +1,7 @@
 # Shortest_Driving_Route
 
+## Project Introduction
+
 Suppose you are a trucker who needs to make deliveries in multiple locations. Two questions you might naturally ask yourself are:
 
 1. "**What is the shortest route I can take?**"
@@ -12,8 +14,6 @@ Screenshots of two examples of the end result of this project can be seen at the
 [Mapbox_Example_TSP_Screenshots](https://github.com/nateofspades/Shortest_Driving_Route/tree/master/Mapbox/Mapbox_Example_TSP_Screenshots). This consists of 4 screenshots of a trucker route that begins in Quebec City and makes a delivery in each of Montreal, Ottawa, Kingston and London before returning to Quebec City. Each of these locations are labeled in **blue**. The map also labels 3 suggested locations for when the driver should begin to look for a gas station in **red**. 
 
 [Mapbox_Example_ATSP_Screenshots](https://github.com/nateofspades/Shortest_Driving_Route/tree/master/Mapbox/Mapbox_Example_ATSP_Screenshots): This is another set of 4 screenshots of a route that begins in Quebec City and makes a delivery in each of Montreal, Ottawa, Kingston and London. In this route the trucker does not return to the starting point, Quebec city, after visiting the last delivery point in London. The locations are labeled in **blue** and the suggested locations for when the driver should begin to look for a gas station in **red**. 
-
-[Mapbox_Example_ATSP_Screenshots](https://github.com/nateofspades/Shortest_Driving_Route/tree/master/Mapbox/Mapbox_Example_ATSP_Screenshots): This consists of 4 screenshots of a route that begins in Quebec City and makes a delivery in each of Montreal, Ottawa, Kingston and London - where the route ends. Each of these locations are labeled in **blue**. The map also labels 2 suggested locations for when the driver should begin to look for a gas station in **red**. 
 
 This project is a direct application of the **Traveling Salesman Problem** using the **Mapbox Directions API**. Here's what I did:
 
