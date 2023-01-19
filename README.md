@@ -15,11 +15,12 @@ Screenshots of two examples of the end result of this project can be seen at the
 
 This project is a direct application of the **Traveling Salesman Problem** using the **Mapbox Directions API**. Here's what I did:
 
-Step 1: Write Python scripts that compute a cycle of a weighted complete graph G which starts at a given node and passes through all of the nodes of G. A cycle of G which passes through all nodes of G is called a **Hamiltonian cycle**. There are 3 such scripts, each corresponding to a different way that a Hamiltonian cycle can be computed: </br>
+Step 1: Write Python scripts that compute a cycle of a weighted complete graph G which starts at a given node and passes through all of the nodes of G. A cycle of G which passes through all nodes of G is called a **Hamiltonian cycle**. Each node can be thought of as a location that the trucker must visit, and the edge weight between two nodes is the distance between the two nodes.
+
+There are 3 such scripts, each corresponding to a different way that a Hamiltonian cycle can be computed: </br>
 [TSP_Brute_Force.py](https://github.com/nateofspades/Shortest_Driving_Route/blob/master/TSP_Brute_Force.py): This computes all of the possible Hamiltonian cycles of G starting at a given node and selects one with the minimum total edge weight.
 [TSP_Greedy.py](https://github.com/nateofspades/Shortest_Driving_Route/blob/master/TSP_Greedy.py): This computes a Hamiltonian cycle of G starting at a given node using a greedy approach. For each node after the first, the script selects an unvisited node that has the minimum edge weight with the current node. Once all nodes have been visited, the Hamiltonian cycle is completed by returning to the starting node.
 [TSP_Christofides.py](https://github.com/nateofspades/Shortest_Driving_Route/blob/master/TSP_Christofides.py): This computes a Hamiltonian cycle of G starting at a given node using Christofides algorithm. Christofides algorithm is guaranteed to find a Hamiltonian cycle with a total edge weight that is at worst 50% higher than the Hamiltonian cycle with the lowest total edge weight.
-
 
 Step 2: Write a Python script that selects which of the 3 approaches from Step 1 to use to generate a Hamiltonian cycle for a graph G and its starting node. In an ideal world we would always use the brute force approach because it considers all possible Hamiltonian cycles and selects the best one. The issue here is with computation time: if G has too many nodes then the brute force approach takes too long to output an answer. For this reason the greedy approach and Christofides algorithm are also considered because they can each generate a Hamiltonian cycle much faster than the brute force approach when the number of nodes is large.
 
@@ -28,4 +29,6 @@ The question then becomes: "How do I know which of the 3 approaches I should use
 
 The first visualization in this notebook shows that if graph G has at most 11 nodes then the brute force approach should take no longer than 9 seconds to generate the Hamiltonian cycle (a reasonable computation time), but if G has just 12 nodes then the computation time skyrockets up to 71 seconds (an unreasonable computation time). I concluded from this visualization that by default the brute force approach will be considered only for graphs with at most 11 nodes. 
 
-The second visualization in this notebook shows that both the greedy approach and Christofides algorithm generate a Hamiltonian cycle nearly instantly even when there are 150 nodes in the graph. For this reason, when there are 12 or more nodes in G then two Hamiltonian cycles are generated - one using the greedy approach and one using Christofides algorithm - and the one with less total edge weight is selected.
+The second visualization in this notebook shows that both the greedy approach and Christofides algorithm generate a Hamiltonian cycle nearly instantly even when there are 150 nodes in the graph. In other words, even if the trucker has to visit as many as 150 locations, both the greedy approach and Christofides algorithm could provide a recommended route nearly instantly. For this reason, when there are 12 or more nodes in G then two Hamiltonian cycles are generated - one using the greedy approach and one using Christofides algorithm - and the one with less total edge weight (i.e. less total distance traveled) is selected.
+
+Step 3: 
