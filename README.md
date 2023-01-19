@@ -15,7 +15,7 @@ Screenshots of two examples of the end result of this project can be seen at the
 
 - [Mapbox_Example_ATSP_Screenshots](https://github.com/nateofspades/Shortest_Driving_Route/tree/master/Mapbox/Mapbox_Example_ATSP_Screenshots): This is another set of 4 screenshots of a route that begins in Quebec City and makes a delivery in each of Montreal, Ottawa, Kingston and London. In this route the trucker does not return to the starting point, Quebec city, after visiting the last delivery point in London. Each of these locations are labeled in **blue**, and suggested locations for when the driver should begin to look for a gas station are in **red**. 
 
-This project is a direct application of the **Traveling Salesman Problem** using the **Mapbox Directions API**. Here's what I did:
+This project is a direct application of the **Traveling Salesman Problem** using the **Mapbox Directions API**. Below you can find the steps that I followed in this project.
 
 ## Step 1a - Traveling Salesman Problem Using 3 Approaches
 
