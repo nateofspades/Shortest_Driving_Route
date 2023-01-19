@@ -33,7 +33,9 @@ There are 3 such scripts, each corresponding to a different way that a Hamiltoni
 
 [TSP.py](https://github.com/nateofspades/Shortest_Driving_Route/blob/master/TSP.py): This Python script selects which of the 3 approaches from Step 1a to use to generate a Hamiltonian cycle for a graph G and its starting node. In an ideal world we would always use the brute force approach because it considers all possible Hamiltonian cycles and selects one with the minimum total edge weight. The issue here is with computation time: if G has too many nodes then the brute force approach takes too long to output an answer. For this reason the greedy approach and Christofides algorithm are also considered because they can each generate a Hamiltonian cycle much faster than the brute force approach when the number of nodes is large.
 
-The question then becomes: "How do I know which of the 3 approaches I should use to generate a Hamiltonian cycle?" My investigation of this question can be seen in
+The question then becomes: "**How do I know which of the 3 approaches I should use to generate a Hamiltonian cycle?**"
+
+My investigation of this question can be seen in
 [Analysis_of_TSP_Computation_Times.ipynb](https://github.com/nateofspades/Shortest_Driving_Route/blob/master/Analysis_of_TSP_Computation_Times.ipynb). In this notebook I used [Create_Random_Graph.py](https://github.com/nateofspades/Shortest_Driving_Route/blob/master/Create_Random_Graph.py) to generate random graphs of various sizes that can be input into the 3 approaches above so that I could determine worst-case computation times. 
 
 The first visualization in this notebook shows that if graph G has at most 11 nodes then the brute force approach should take no longer than 9 seconds to generate the Hamiltonian cycle (a reasonable computation time), but if G has just 12 nodes then the computation time skyrockets up to 71 seconds (an unreasonable computation time). I concluded from this visualization that **by default the brute force approach will be considered only for graphs with at most 11 nodes**. 
