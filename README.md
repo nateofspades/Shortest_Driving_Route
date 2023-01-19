@@ -44,7 +44,7 @@ The second visualization in this notebook shows that both the greedy approach an
 
 ## Step 1b - Asymmetric Traveling Salesman Problem Using 3 Approaches
 
-This is similar to Step 2 except that now we are interested in creating a **Hamiltonian path** instead of a Hamiltonian cycle. The difference is that now we are no longer interested in returning to the starting node after the last node has been visited. 
+This is similar to Step 1a except that now we are interested in creating a **Hamiltonian path** instead of a Hamiltonian cycle. The difference is that now we are no longer interested in returning to the starting node after the last node has been visited. 
 
 There are 3 such scripts, each corresponding to a different way that a Hamiltonian path can be computed:
 
