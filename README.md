@@ -7,7 +7,7 @@ Suppose you are a trucker who needs to make deliveries in multiple locations. Tw
 
 The focus of this project is to answer both of these questions. 
 
-Screenshots of two examples of the end result of this project can be seen at the links below:
+Screenshots of two examples of the end result of this project can be seen at the first two links below:
 
 [Mapbox_Example_TSP_Screenshots](https://github.com/nateofspades/Shortest_Driving_Route/tree/master/Mapbox/Mapbox_Example_TSP_Screenshots). This consists of 4 screenshots of a trucker route that begins in Quebec City and makes a delivery in each of Montreal, Ottawa, Kingston and London before returning to Quebec City. Each of these locations are labeled in **blue**. The map also labels 3 suggested locations for when the driver should begin to look for a gas station in **red**. 
 
@@ -67,10 +67,8 @@ is_asymmetric: If set to False then the truck will use Step 2a to generate the H
 
 Step 4a - Example of Hamiltonian Cycle Trucker Route
 
-[Mapbox_Example_TSP_Code.ipynb](https://github.com/nateofspades/Shortest_Driving_Route/blob/master/Mapbox/Mapbox_Example_TSP_Code.ipynb): This notebook shows an example of how to use the generate_map() function from Step 3. It generates a trucker route that begins in Quebec City and makes a delivery in each of Montreal, Ottawa, Kingston and London - where the route ends. You can see screenshots of the interactive output in 
-[Mapbox_Example_TSP_Screenshots](https://github.com/nateofspades/Shortest_Driving_Route/tree/master/Mapbox/Mapbox_Example_TSP_Screenshots). Each of the 5 locations are labeled in **blue**. The map also labels 2 suggested locations for when the driver should begin to look for a gas station in **red**. 
+[Mapbox_Example_TSP_Code.ipynb](https://github.com/nateofspades/Shortest_Driving_Route/blob/master/Mapbox/Mapbox_Example_TSP_Code.ipynb): This notebook shows an example of how to use the generate_map() function from Step 3. It generates a trucker route that begins in Quebec City and makes a delivery in each of Montreal, Ottawa, Kingston and London before returning to Quebec City. You can see screenshots of the interactive output in 
+[Mapbox_Example_TSP_Screenshots](https://github.com/nateofspades/Shortest_Driving_Route/tree/master/Mapbox/Mapbox_Example_TSP_Screenshots). Each of the locations are labeled in **blue**. The map also labels 3 suggested locations for when the driver should begin to look for a gas station in **red**. 
 
 Step 4b - Example of Hamiltonian Path Trucker Route
-
-
-[Mapbox_Example_ATSP_Screenshots](https://github.com/nateofspades/Shortest_Driving_Route/tree/master/Mapbox/Mapbox_Example_ATSP_Screenshots)
+[Mapbox_Example_ATSP_Screenshots](https://github.com/nateofspades/Shortest_Driving_Route/tree/master/Mapbox/Mapbox_Example_ATSP_Screenshots): This notebook shows an example of how to use the generate_map() function from Step 3. It generates a trucker route that begins in Quebec City and makes a delivery in each of Montreal, Ottawa, Kingston and London - where the route ends. You can see screenshots of the interactive output in [Mapbox_Example_ATSP_Screenshots](https://github.com/nateofspades/Shortest_Driving_Route/tree/master/Mapbox/Mapbox_Example_ATSP_Screenshots). Each of the locations are labeled in **blue**. The map also labels 2 suggested locations for when the driver should begin to look for a gas station in **red**. 
